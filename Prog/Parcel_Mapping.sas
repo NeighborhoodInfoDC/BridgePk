@@ -2,12 +2,12 @@
  Program:  Parcel_Mapping.sas
  Library:  BridgePk
  Project:  NeighborhoodInfo DC
- Author:   
- Created:  
+ Author:   M. Cohen
+ Created:  7/13/17
  Version:  SAS 9.2
  Environment:  Local Windows session (desktop)
  
- Description: 
+ Description: Merges DC Open Data on Parcels with Real Property Geographies and Ownership Data.
 
  Modifications:
 **************************************************************************/
