@@ -27,42 +27,57 @@
 %let year_lbl = 2011-15;
 
 ** Pull ACS Estimates for city **;
-data ACS_city (keep= city ShrLaborForce_&year ShrEmpRate_&year ShrUnEmpRate_&year
-ShrPov_&year ShrHS_&year ShrCol_&year ShrWht_&year ShrBlk_&year ShrHisp_&year 
-ShrAsn_&year ShrOth_&year);
-set ACS.acs_2011_15_dc_sum_tr_city (keep= popincivlaborforce_&year
-pop16andoveryears_&year popcivilianemployed_&year popunemployed_&year 
-poppoorpersons_&year personspovertydefined_&year popwithrace_&year 
-popwhitenonhispbridge_&year popblacknonhispbridge_&year pophisp_&year 
-popasianpinonhispbridge_&year popotherracenonhispbridg_&year 
-pop25andoveryears_&year pop25andoverwhs_&year pop25andoverwcollege_&year 
-city);
+data ACS_city 
+	(keep= city ShrLaborForce_&year ShrEmpRate_&year ShrUnEmpRate_&year
+	ShrPov_&year ShrHS_&year ShrCol_&year ShrWht_&year ShrBlk_&year ShrHisp_&year 
+	ShrAsn_&year ShrOth_&year);
 
-ShrLaborForce_&year = popincivlaborforce_&year / pop16andoveryears_&year;
-ShrEmpRate_&year = popcivilianemployed_&year / popincivlaborforce_&year;
-ShrUnEmpRate_&year = popunemployed_&year / popincivlaborforce_&year;
-ShrPov_&year = poppoorpersons_&year / personspovertydefined_&year;
+	set ACS.acs_2011_15_dc_sum_tr_city 
+	(keep= popincivlaborforce_&year
+	pop16andoveryears_&year popcivilianemployed_&year popunemployed_&year 
+	poppoorpersons_&year personspovertydefined_&year popwithrace_&year 
+	popwhitenonhispbridge_&year popblacknonhispbridge_&year pophisp_&year 
+	popasianpinonhispbridge_&year popotherracenonhispbridg_&year 
+	pop25andoveryears_&year pop25andoverwhs_&year pop25andoverwcollege_&year 
+	popemployedmngmt_&year popemployednatres_&year popemployedprod_&year 
+	popemployedsales_&year popemployedserv_&year popemployedbyocc_&year
+	numrenteroccupiedhu_&year numowneroccupiedhu_&year numoccupiedhsgunits_&year city );
 
-ShrHS_&year = pop25andoverwhs_&year / pop25andoveryears_&year;
-ShrCol_&year = pop25andoverwcollege_&year / pop25andoveryears_&year;
+		ShrLaborForce_&year = popincivlaborforce_&year / pop16andoveryears_&year;
+		ShrEmpRate_&year = popcivilianemployed_&year / popincivlaborforce_&year;
+		ShrUnEmpRate_&year = popunemployed_&year / popincivlaborforce_&year;
+		ShrEmpMngmt_&year = popemployedmngmt_&year / popemployedbyocc_2011_15;
+		ShrEmpNatRes_&year = popemployednatres_&year / popemployedbyocc_2011_15;
+		ShrEmpProd_&year = popemployedprod_&year / popemployedbyocc_2011_15;
+		ShrEmpSales_&year = popemployedsales_&year / popemployedbyocc_2011_15;
+		ShrEmpServ_&year = popemployedserv_&year / popemployedbyocc_2011_15;
 
-ShrWht_&year = popwhitenonhispbridge_&year / popwithrace_&year;
-ShrBlk_&year = popblacknonhispbridge_&year / popwithrace_&year;
-ShrHisp_&year = pophisp_&year / popwithrace_&year;
-ShrAsn_&year = popasianpinonhispbridge_&year / popwithrace_&year;
-ShrOth_&year = popotherracenonhispbridg_&year / popwithrace_&year;
+		ShrPov_&year = poppoorpersons_&year / personspovertydefined_&year;
+		ShrHomeownership_&year = numowneroccupiedhu_&year / numoccupiedhsgunits_&year;
+
+		ShrHS_&year = pop25andoverwhs_&year / pop25andoveryears_&year;
+		ShrCol_&year = pop25andoverwcollege_&year / pop25andoveryears_&year;
+
+		ShrWht_&year = popwhitenonhispbridge_&year / popwithrace_&year;
+		ShrBlk_&year = popblacknonhispbridge_&year / popwithrace_&year;
+		ShrHisp_&year = pophisp_&year / popwithrace_&year;
+		ShrAsn_&year = popasianpinonhispbridge_&year / popwithrace_&year;
+		ShrOth_&year = popotherracenonhispbridg_&year / popwithrace_&year;
 
 run;
 
 proc export data = ACS_city outfile = "L:\Libraries\Bridgepk\Data\ACS_city_pct.csv" dbms = csv replace;
 run;
 
-data ACS_city_n (keep= city pop16andoveryears_&year popincivlaborforce_&year
-personspovertydefined_&year pop25andoveryears_&year popwithrace_&year
-numrenterhsgunits_&year);
-set ACS.acs_2011_15_dc_sum_tr_city (keep= pop16andoveryears_&year 
-popincivlaborforce_&year personspovertydefined_&year 
-pop25andoveryears_&year popwithrace_&year numrenterhsgunits_&year city);
+data ACS_city_n 
+	(keep= city pop16andoveryears_&year popincivlaborforce_&year
+			personspovertydefined_&year pop25andoveryears_&year popwithrace_&year
+			numrenteroccupiedhu_&year numowneroccupiedhu_&year);
+	set ACS.acs_2011_15_dc_sum_tr_city 
+	(keep= pop16andoveryears_&year 
+			popincivlaborforce_&year personspovertydefined_&year 
+			pop25andoveryears_&year popwithrace_&year 
+			numrenteroccupiedhu_&year numowneroccupiedhu_&year city);
 
 run;
 
@@ -84,7 +99,14 @@ ward2012);
 ShrLaborForce_&year = popincivlaborforce_&year / pop16andoveryears_&year;
 ShrEmpRate_&year = popcivilianemployed_&year / popincivlaborforce_&year;
 ShrUnEmpRate_&year = popunemployed_&year / popincivlaborforce_&year;
+ShrEmpMngmt_&year = popemployedmngmt_&year / popemployedbyocc_2011_15;
+ShrEmpNatRes_&year = popemployednatres_&year / popemployedbyocc_2011_15;
+ShrEmpProd_&year = popemployedprod_&year / popemployedbyocc_2011_15;
+ShrEmpSales_&year = popemployedsales_&year / popemployedbyocc_2011_15;
+ShrEmpServ_&year = popemployedserv_&year / popemployedbyocc_2011_15;
+
 ShrPov_&year = poppoorpersons_&year / personspovertydefined_&year;
+ShrHomeownership_&year = numowneroccupiedhu_&year / numoccupiedhsgunits_&year;
 
 ShrHS_&year = pop25andoverwhs_&year / pop25andoveryears_&year;
 ShrCol_&year = pop25andoverwcollege_&year / pop25andoveryears_&year;
@@ -127,7 +149,14 @@ bridgepk);
 ShrLaborForce_&year = popincivlaborforce_&year / pop16andoveryears_&year;
 ShrEmpRate_&year = popcivilianemployed_&year / popincivlaborforce_&year;
 ShrUnEmpRate_&year = popunemployed_&year / popincivlaborforce_&year;
+ShrEmpMngmt_&year = popemployedmngmt_&year / popemployedbyocc_2011_15;
+ShrEmpNatRes_&year = popemployednatres_&year / popemployedbyocc_2011_15;
+ShrEmpProd_&year = popemployedprod_&year / popemployedbyocc_2011_15;
+ShrEmpSales_&year = popemployedsales_&year / popemployedbyocc_2011_15;
+ShrEmpServ_&year = popemployedserv_&year / popemployedbyocc_2011_15;
+
 ShrPov_&year = poppoorpersons_&year / personspovertydefined_&year;
+ShrHomeownership_&year = numowneroccupiedhu_&year / numoccupiedhsgunits_&year;
 
 ShrHS_&year = pop25andoverwhs_&year / pop25andoveryears_&year;
 ShrCol_&year = pop25andoverwcollege_&year / pop25andoveryears_&year;
