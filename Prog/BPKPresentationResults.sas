@@ -50,7 +50,8 @@ data ACS_city
 	pop25andoveryears_&year pop25andoverwhs_&year pop25andoverwcollege_&year 
 	popemployedmngmt_&year popemployednatres_&year popemployedprod_&year 
 	popemployedsales_&year popemployedserv_&year popemployedbyocc_&year
-	numrenteroccupiedhu_&year numowneroccupiedhu_&year numoccupiedhsgunits_&year 
+	numrenteroccupiedhu_&year numowneroccupiedhu_&year numoccupiedhsgunits_&year
+	RentCostBurdenDenom_&year OwnerCostBurdenDenom_&year 
 	NumRenterCostBurden_&year NumRentSevereCostBurden_&year NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
 	PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
 	PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
@@ -91,10 +92,10 @@ data ACS_city
 
 	/*Homeownership, rent, and cost burden*/
 		ShrHomeownership_&year = numowneroccupiedhu_&year / numoccupiedhsgunits_&year;
-		ShrRenterCostBurden_&year = NumRenterCostBurden_&year/numrenteroccupiedhu_&year;
-		ShrRentSevereCostBurden_&year = NumRentSevereCostBurden_&year/numrenteroccupiedhu_&year;
-		ShrOwnerCostBurden_&year = NumOwnerCostBurden_&year/numowneroccupiedhu_&year;
-		ShrOwnSevereCostBurden_&year = NumOwnSevereCostBurden_&year/numowneroccupiedhu_&year;
+		ShrRenterCostBurden_&year = NumRenterCostBurden_&year/RentCostBurdenDenom_&year;
+		ShrRentSevereCostBurden_&year = NumRentSevereCostBurden_&year/RentCostBurdenDenom_&year;
+		ShrOwnerCostBurden_&year = NumOwnerCostBurden_&year/OwnerCostBurdenDenom_&year;
+		ShrOwnSevereCostBurden_&year = NumOwnSevereCostBurden_&year/OwnerCostBurdenDenom_&year;
 
 	/*Education*/
 		ShrHS_&year = pop25andoverwhs_&year / pop25andoveryears_&year;
@@ -177,6 +178,7 @@ data ACS_ward
 	popemployedmngmt_&year popemployednatres_&year popemployedprod_&year 
 	popemployedsales_&year popemployedserv_&year popemployedbyocc_&year
 	numrenteroccupiedhu_&year numowneroccupiedhu_&year numoccupiedhsgunits_&year 
+	RentCostBurdenDenom_&year OwnerCostBurdenDenom_&year
 	NumRenterCostBurden_&year NumRentSevereCostBurden_&year NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
 	PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
 	PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
@@ -217,10 +219,10 @@ data ACS_ward
 
 	/*Homeownership, rent, and cost burden*/
 		ShrHomeownership_&year = numowneroccupiedhu_&year / numoccupiedhsgunits_&year;
-		ShrRenterCostBurden_&year = NumRenterCostBurden_&year/numrenteroccupiedhu_&year;
-		ShrRentSevereCostBurden_&year = NumRentSevereCostBurden_&year/numrenteroccupiedhu_&year;
-		ShrOwnerCostBurden_&year = NumOwnerCostBurden_&year/numowneroccupiedhu_&year;
-		ShrOwnSevereCostBurden_&year = NumOwnSevereCostBurden_&year/numowneroccupiedhu_&year;
+		ShrRenterCostBurden_&year = NumRenterCostBurden_&year/RentCostBurdenDenom_&year;
+		ShrRentSevereCostBurden_&year = NumRentSevereCostBurden_&year/RentCostBurdenDenom_&year;
+		ShrOwnerCostBurden_&year = NumOwnerCostBurden_&year/OwnerCostBurdenDenom_&year;
+		ShrOwnSevereCostBurden_&year = NumOwnSevereCostBurden_&year/OwnerCostBurdenDenom_&year;
 
 	/*Education*/
 		ShrHS_&year = pop25andoverwhs_&year / pop25andoveryears_&year;
@@ -304,6 +306,7 @@ data ACS_bpk
 	popemployedmngmt_&year popemployednatres_&year popemployedprod_&year 
 	popemployedsales_&year popemployedserv_&year popemployedbyocc_&year
 	numrenteroccupiedhu_&year numowneroccupiedhu_&year numoccupiedhsgunits_&year 
+	RentCostBurdenDenom_&year OwnerCostBurdenDenom_&year
 	NumRenterCostBurden_&year NumRentSevereCostBurden_&year NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
 	PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
 	PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
@@ -344,10 +347,10 @@ data ACS_bpk
 
 	/*Homeownership, rent, and cost burden*/
 		ShrHomeownership_&year = numowneroccupiedhu_&year / numoccupiedhsgunits_&year;
-		ShrRenterCostBurden_&year = NumRenterCostBurden_&year/numrenteroccupiedhu_&year;
-		ShrRentSevereCostBurden_&year = NumRentSevereCostBurden_&year/numrenteroccupiedhu_&year;
-		ShrOwnerCostBurden_&year = NumOwnerCostBurden_&year/numowneroccupiedhu_&year;
-		ShrOwnSevereCostBurden_&year = NumOwnSevereCostBurden_&year/numowneroccupiedhu_&year;
+		ShrRenterCostBurden_&year = NumRenterCostBurden_&year/RentCostBurdenDenom_&year;
+		ShrRentSevereCostBurden_&year = NumRentSevereCostBurden_&year/RentCostBurdenDenom_&year;
+		ShrOwnerCostBurden_&year = NumOwnerCostBurden_&year/OwnerCostBurdenDenom_&year;
+		ShrOwnSevereCostBurden_&year = NumOwnSevereCostBurden_&year/OwnerCostBurdenDenom_&year;
 
 	/*Education*/
 		ShrHS_&year = pop25andoverwhs_&year / pop25andoveryears_&year;
