@@ -20,14 +20,8 @@
 
 ** Load DC Parcel and District-owned Land Data**;
 
-data common_lots;
-
-	set BridgePk.Common_Owner_Polygon_Lots;
-		
-run;
-
 proc sort 
-	data = common_lots out = common_lots;
+	data = BridgePk.Common_Owner_Polygon_Lots out = common_lots;
 	by SSL;
 run;
 
@@ -63,7 +57,7 @@ run;
 
 data who_owns;
 
-	set RealProp.Parcel_Base_Who_Owns;
+	set RealProp.Parcel_Base_Who_Owns (drop=premiseadd mix1txtype mix2txtype);
 	by SSL;
 
 run;
@@ -77,12 +71,25 @@ data dc_parcel;
 
 run;
 
+%Finalize_data_set( 
+  data=dc_parcel,
+  out=dc_parcel,
+  outlib=BridgePk,
+  label=Bridge Park parcel map,
+  sortby=ssl,
+  revisions=%str(New file.)
+)
+
+
+
+/*
 data BridgePk.dc_parcel;
 
 	set dc_parcel;
 	%block10_to_bpk( );
 
 run;
+*/
 
 ** Create a test merge using full DC Parcel data to check unmatched parcels **;
 
