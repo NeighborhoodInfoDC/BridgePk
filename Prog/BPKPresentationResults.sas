@@ -32,8 +32,14 @@ data ACS_city
 	(keep= city ShrLaborForce_&year ShrEmpRate_&year ShrUnEmpRate_&year
 	ShrPov_&year ShrHS_&year ShrCol_&year ShrWht_&year ShrBlk_&year ShrHisp_&year 
 	ShrAsn_&year ShrOth_&year 
-	PctRenterCostBurden_&year PctRentSevereCostBurden_&year PctOwnerCostBurden_&year PctOwnSevereCostBurden_&year
-	GrossRent:);
+	ShrEmpMngmt_&year ShrEmpNatRes_&year ShrEmpProd_&year ShrEmpSales_&year ShrEmpServ_&year
+	ShrEmpAgric_&year ShrEmpConstr_&year ShrEmpManuf_&year ShrEmpWhlsale_&year 
+	ShrEmpRetail_&year ShrEmpTransprt_&year ShrEmpInfo_&year ShrEmpFinance_&year
+	ShrEmpProfServ_&year ShrEmpEduction_&year ShrEmpArts_&year ShrEmpOther_&year
+	ShrEmpPubAdmin_&year 
+	ShrHomeownership_&year ShrRenterCostBurden_&year ShrRentSevereCostBurden_&year 
+	ShrOwnerCostBurden_&year ShrOwnSevereCostBurden_&year
+	);
 
 	set ACS.acs_2011_15_dc_sum_tr_city 
 	(keep= popincivlaborforce_&year
@@ -46,38 +52,55 @@ data ACS_city
 	popemployedsales_&year popemployedserv_&year popemployedbyocc_&year
 	numrenteroccupiedhu_&year numowneroccupiedhu_&year numoccupiedhsgunits_&year 
 	NumRenterCostBurden_&year NumRentSevereCostBurden_&year NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
-	GrossRent: 		   
 	PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
 	PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
 	PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
 	PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
 	PopEmployedOther_&year PopEmployedPubAdmin_&year
-	PopEmployedByOcc_&_year PopEmployedMngmt_&_year
-	PopEmployedServ_&_year PopEmployedSales_&_year
-	PopEmployedNatRes_&_year PopEmployedProd_&_year city );
+	PopEmployedByOcc_&year PopEmployedMngmt_&year
+	PopEmployedServ_&year PopEmployedSales_&year
+	PopEmployedNatRes_&year PopEmployedProd_&year city );
 
+	/*Labor force, employment, and poverty*/
 		ShrLaborForce_&year = popincivlaborforce_&year / pop16andoveryears_&year;
 		ShrEmpRate_&year = popcivilianemployed_&year / popincivlaborforce_&year;
 		ShrUnEmpRate_&year = popunemployed_&year / popincivlaborforce_&year;
+		ShrPov_&year = poppoorpersons_&year / personspovertydefined_&year;
+
+	/*Employment by major occupations*/
 		ShrEmpMngmt_&year = popemployedmngmt_&year / popemployedbyocc_2011_15;
 		ShrEmpNatRes_&year = popemployednatres_&year / popemployedbyocc_2011_15;
 		ShrEmpProd_&year = popemployedprod_&year / popemployedbyocc_2011_15;
 		ShrEmpSales_&year = popemployedsales_&year / popemployedbyocc_2011_15;
 		ShrEmpServ_&year = popemployedserv_&year / popemployedbyocc_2011_15;
+
+	/*Employment by major industries*/
 		ShrEmpAgric_&year = PopEmployedAgric_&year / popemployedbyind_2011_15;
+		ShrEmpConstr_&year = PopEmployedConstr_&year / popemployedbyind_2011_15;
+		ShrEmpManuf_&year = PopEmployedManuf_&year / popemployedbyind_2011_15;
+		ShrEmpWhlsale_&year = PopEmployedWhlsale_&year / popemployedbyind_2011_15;
+		ShrEmpRetail_&year = PopEmployedRetail_&year / popemployedbyind_2011_15;
+		ShrEmpTransprt_&year = PopEmployedTransprt_&year / popemployedbyind_2011_15;
+		ShrEmpInfo_&year = PopEmployedInfo_&year / popemployedbyind_2011_15;
+		ShrEmpFinance_&year = PopEmployedFinance_&year / popemployedbyind_2011_15;
+		ShrEmpProfServ_&year = PopEmployedProfServ_&year / popemployedbyind_2011_15;
+		ShrEmpEduction_&year = PopEmployedEduction_&year / popemployedbyind_2011_15;
+		ShrEmpArts_&year = PopEmployedArts_&year / popemployedbyind_2011_15;
+		ShrEmpOther_&year = PopEmployedOther_&year / popemployedbyind_2011_15;
+		ShrEmpPubAdmin_&year = PopEmployedPubAdmin_&year / popemployedbyind_2011_15;
 
-		/*need to add
-		-remaining employment vars by industry
-		-share of cost-burdened renters and homeowners
-		-renter-occupied housing units by gross rent*/
-
-
-		ShrPov_&year = poppoorpersons_&year / personspovertydefined_&year;
+	/*Homeownership, rent, and cost burden*/
 		ShrHomeownership_&year = numowneroccupiedhu_&year / numoccupiedhsgunits_&year;
+		ShrRenterCostBurden_&year = NumRenterCostBurden_&year/numrenteroccupiedhu_&year;
+		ShrRentSevereCostBurden_&year = NumRentSevereCostBurden_&year/numrenteroccupiedhu_&year;
+		ShrOwnerCostBurden_&year = NumOwnerCostBurden_&year/numowneroccupiedhu_&year;
+		ShrOwnSevereCostBurden_&year = NumOwnSevereCostBurden_&year/numowneroccupiedhu_&year;
 
+	/*Education*/
 		ShrHS_&year = pop25andoverwhs_&year / pop25andoveryears_&year;
 		ShrCol_&year = pop25andoverwcollege_&year / pop25andoveryears_&year;
 
+	/*Race and ethnicity*/
 		ShrWht_&year = popwhitenonhispbridge_&year / popwithrace_&year;
 		ShrBlk_&year = popblacknonhispbridge_&year / popwithrace_&year;
 		ShrHisp_&year = pophisp_&year / popwithrace_&year;
@@ -92,12 +115,37 @@ run;
 data ACS_city_n 
 	(keep= city pop16andoveryears_&year popincivlaborforce_&year
 			personspovertydefined_&year pop25andoveryears_&year popwithrace_&year
-			numrenteroccupiedhu_&year numowneroccupiedhu_&year);
+			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
+			NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+			NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
+			GrossRentLT100_499_&year GrossRent500_799_&year GrossRent800_899_&year 
+			GrossRent900_999_&year GrossRent1000_1249_&year GrossRent1250_1499_&year 
+			GrossRent1500_1999_&year GrossRent2000_2499_&year GrossRent2500_2999_&year 
+			GrossRent3000_3499_&year GrossRentGT3500_&year 
+			PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
+			PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
+			PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
+			PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
+			PopEmployedOther_&year PopEmployedPubAdmin_&year
+			PopEmployedByOcc_&year PopEmployedMngmt_&year
+			PopEmployedServ_&year PopEmployedSales_&year
+			PopEmployedNatRes_&year PopEmployedProd_&year);
 	set ACS.acs_2011_15_dc_sum_tr_city 
 	(keep= pop16andoveryears_&year 
 			popincivlaborforce_&year personspovertydefined_&year 
 			pop25andoveryears_&year popwithrace_&year 
-			numrenteroccupiedhu_&year numowneroccupiedhu_&year city);
+			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
+			GrossRent: NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+			NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
+			PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
+			PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
+			PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
+			PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
+			PopEmployedOther_&year PopEmployedPubAdmin_&year
+			PopEmployedByOcc_&year PopEmployedMngmt_&year
+			PopEmployedServ_&year PopEmployedSales_&year
+			PopEmployedNatRes_&year PopEmployedProd_&year
+			city);
 
 run;
 
@@ -106,110 +154,256 @@ run;
 
 ** Pull ACS Estimates for wards **;
 
-data ACS_ward (keep= ward2012 ShrLaborForce_&year ShrEmpRate_&year ShrUnEmpRate_&year 
-ShrPov_&year ShrHS_&year ShrCol_&year ShrWht_&year ShrBlk_&year ShrHisp_&year 
-ShrAsn_&year ShrOth_&year);
-set ACS.acs_2011_15_dc_sum_tr_wd12  (keep= popincivlaborforce_&year
-pop16andoveryears_&year popcivilianemployed_&year popunemployed_&year 
-poppoorpersons_&year personspovertydefined_&year popwithrace_&year 
-popwhitenonhispbridge_&year popblacknonhispbridge_&year pophisp_&year 
-popasianpinonhispbridge_&year popotherracenonhispbridg_&year 
-pop25andoveryears_&year pop25andoverwhs_&year pop25andoverwcollege_&year 
-ward2012);
+data ACS_ward 
+	(keep= ward2012 ShrLaborForce_&year ShrEmpRate_&year ShrUnEmpRate_&year
+	ShrPov_&year ShrHS_&year ShrCol_&year ShrWht_&year ShrBlk_&year ShrHisp_&year 
+	ShrAsn_&year ShrOth_&year 
+	ShrEmpMngmt_&year ShrEmpNatRes_&year ShrEmpProd_&year ShrEmpSales_&year ShrEmpServ_&year
+	ShrEmpAgric_&year ShrEmpConstr_&year ShrEmpManuf_&year ShrEmpWhlsale_&year 
+	ShrEmpRetail_&year ShrEmpTransprt_&year ShrEmpInfo_&year ShrEmpFinance_&year
+	ShrEmpProfServ_&year ShrEmpEduction_&year ShrEmpArts_&year ShrEmpOther_&year
+	ShrEmpPubAdmin_&year 
+	ShrHomeownership_&year ShrRenterCostBurden_&year ShrRentSevereCostBurden_&year 
+	ShrOwnerCostBurden_&year ShrOwnSevereCostBurden_&year
+	);
 
-ShrLaborForce_&year = popincivlaborforce_&year / pop16andoveryears_&year;
-ShrEmpRate_&year = popcivilianemployed_&year / popincivlaborforce_&year;
-ShrUnEmpRate_&year = popunemployed_&year / popincivlaborforce_&year;
-ShrEmpMngmt_&year = popemployedmngmt_&year / popemployedbyocc_2011_15;
-ShrEmpNatRes_&year = popemployednatres_&year / popemployedbyocc_2011_15;
-ShrEmpProd_&year = popemployedprod_&year / popemployedbyocc_2011_15;
-ShrEmpSales_&year = popemployedsales_&year / popemployedbyocc_2011_15;
-ShrEmpServ_&year = popemployedserv_&year / popemployedbyocc_2011_15;
+	set ACS.acs_2011_15_dc_sum_tr_wd12 
+	(keep= popincivlaborforce_&year
+	pop16andoveryears_&year popcivilianemployed_&year popunemployed_&year 
+	poppoorpersons_&year personspovertydefined_&year popwithrace_&year 
+	popwhitenonhispbridge_&year popblacknonhispbridge_&year pophisp_&year 
+	popasianpinonhispbridge_&year popotherracenonhispbridg_&year 
+	pop25andoveryears_&year pop25andoverwhs_&year pop25andoverwcollege_&year 
+	popemployedmngmt_&year popemployednatres_&year popemployedprod_&year 
+	popemployedsales_&year popemployedserv_&year popemployedbyocc_&year
+	numrenteroccupiedhu_&year numowneroccupiedhu_&year numoccupiedhsgunits_&year 
+	NumRenterCostBurden_&year NumRentSevereCostBurden_&year NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
+	PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
+	PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
+	PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
+	PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
+	PopEmployedOther_&year PopEmployedPubAdmin_&year
+	PopEmployedByOcc_&year PopEmployedMngmt_&year
+	PopEmployedServ_&year PopEmployedSales_&year
+	PopEmployedNatRes_&year PopEmployedProd_&year ward2012 );
 
-ShrPov_&year = poppoorpersons_&year / personspovertydefined_&year;
-ShrHomeownership_&year = numowneroccupiedhu_&year / numoccupiedhsgunits_&year;
+	/*Labor force, employment, and poverty*/
+		ShrLaborForce_&year = popincivlaborforce_&year / pop16andoveryears_&year;
+		ShrEmpRate_&year = popcivilianemployed_&year / popincivlaborforce_&year;
+		ShrUnEmpRate_&year = popunemployed_&year / popincivlaborforce_&year;
+		ShrPov_&year = poppoorpersons_&year / personspovertydefined_&year;
 
-ShrHS_&year = pop25andoverwhs_&year / pop25andoveryears_&year;
-ShrCol_&year = pop25andoverwcollege_&year / pop25andoveryears_&year;
+	/*Employment by major occupations*/
+		ShrEmpMngmt_&year = popemployedmngmt_&year / popemployedbyocc_2011_15;
+		ShrEmpNatRes_&year = popemployednatres_&year / popemployedbyocc_2011_15;
+		ShrEmpProd_&year = popemployedprod_&year / popemployedbyocc_2011_15;
+		ShrEmpSales_&year = popemployedsales_&year / popemployedbyocc_2011_15;
+		ShrEmpServ_&year = popemployedserv_&year / popemployedbyocc_2011_15;
 
-ShrWht_&year = popwhitenonhispbridge_&year / popwithrace_&year;
-ShrBlk_&year = popblacknonhispbridge_&year / popwithrace_&year;
-ShrHisp_&year = pophisp_&year / popwithrace_&year;
-ShrAsn_&year = popasianpinonhispbridge_&year / popwithrace_&year;
-ShrOth_&year = popotherracenonhispbridg_&year / popwithrace_&year;
+	/*Employment by major industries*/
+		ShrEmpAgric_&year = PopEmployedAgric_&year / popemployedbyind_2011_15;
+		ShrEmpConstr_&year = PopEmployedConstr_&year / popemployedbyind_2011_15;
+		ShrEmpManuf_&year = PopEmployedManuf_&year / popemployedbyind_2011_15;
+		ShrEmpWhlsale_&year = PopEmployedWhlsale_&year / popemployedbyind_2011_15;
+		ShrEmpRetail_&year = PopEmployedRetail_&year / popemployedbyind_2011_15;
+		ShrEmpTransprt_&year = PopEmployedTransprt_&year / popemployedbyind_2011_15;
+		ShrEmpInfo_&year = PopEmployedInfo_&year / popemployedbyind_2011_15;
+		ShrEmpFinance_&year = PopEmployedFinance_&year / popemployedbyind_2011_15;
+		ShrEmpProfServ_&year = PopEmployedProfServ_&year / popemployedbyind_2011_15;
+		ShrEmpEduction_&year = PopEmployedEduction_&year / popemployedbyind_2011_15;
+		ShrEmpArts_&year = PopEmployedArts_&year / popemployedbyind_2011_15;
+		ShrEmpOther_&year = PopEmployedOther_&year / popemployedbyind_2011_15;
+		ShrEmpPubAdmin_&year = PopEmployedPubAdmin_&year / popemployedbyind_2011_15;
+
+	/*Homeownership, rent, and cost burden*/
+		ShrHomeownership_&year = numowneroccupiedhu_&year / numoccupiedhsgunits_&year;
+		ShrRenterCostBurden_&year = NumRenterCostBurden_&year/numrenteroccupiedhu_&year;
+		ShrRentSevereCostBurden_&year = NumRentSevereCostBurden_&year/numrenteroccupiedhu_&year;
+		ShrOwnerCostBurden_&year = NumOwnerCostBurden_&year/numowneroccupiedhu_&year;
+		ShrOwnSevereCostBurden_&year = NumOwnSevereCostBurden_&year/numowneroccupiedhu_&year;
+
+	/*Education*/
+		ShrHS_&year = pop25andoverwhs_&year / pop25andoveryears_&year;
+		ShrCol_&year = pop25andoverwcollege_&year / pop25andoveryears_&year;
+
+	/*Race and ethnicity*/
+		ShrWht_&year = popwhitenonhispbridge_&year / popwithrace_&year;
+		ShrBlk_&year = popblacknonhispbridge_&year / popwithrace_&year;
+		ShrHisp_&year = pophisp_&year / popwithrace_&year;
+		ShrAsn_&year = popasianpinonhispbridge_&year / popwithrace_&year;
+		ShrOth_&year = popotherracenonhispbridg_&year / popwithrace_&year;
 
 run;
 
 proc export data = ACS_ward outfile = "L:\Libraries\Bridgepk\Data\ACS_ward_pct.csv" dbms = csv replace;
 run;
 
-data ACS_ward_n (keep= ward2012 pop16andoveryears_&year popincivlaborforce_&year
-personspovertydefined_&year pop25andoveryears_&year popwithrace_&year
-numrenterhsgunits_&year);
-set ACS.acs_2011_15_dc_sum_tr_wd12 (keep= pop16andoveryears_&year 
-popincivlaborforce_&year personspovertydefined_&year 
-pop25andoveryears_&year popwithrace_&year numrenterhsgunits_&year ward2012);
 
+data ACS_ward_n 
+	(keep= ward2012 pop16andoveryears_&year popincivlaborforce_&year
+			personspovertydefined_&year pop25andoveryears_&year popwithrace_&year
+			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
+			NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+			NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
+			GrossRentLT100_499_&year GrossRent500_799_&year GrossRent800_899_&year 
+			GrossRent900_999_&year GrossRent1000_1249_&year GrossRent1250_1499_&year 
+			GrossRent1500_1999_&year GrossRent2000_2499_&year GrossRent2500_2999_&year 
+			GrossRent3000_3499_&year GrossRentGT3500_&year 
+			PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
+			PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
+			PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
+			PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
+			PopEmployedOther_&year PopEmployedPubAdmin_&year
+			PopEmployedByOcc_&year PopEmployedMngmt_&year
+			PopEmployedServ_&year PopEmployedSales_&year
+			PopEmployedNatRes_&year PopEmployedProd_&year);
+	set ACS.acs_2011_15_dc_sum_tr_wd12 
+	(keep= pop16andoveryears_&year 
+			popincivlaborforce_&year personspovertydefined_&year 
+			pop25andoveryears_&year popwithrace_&year 
+			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
+			GrossRent: NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+			NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
+			PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
+			PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
+			PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
+			PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
+			PopEmployedOther_&year PopEmployedPubAdmin_&year
+			PopEmployedByOcc_&year PopEmployedMngmt_&year
+			PopEmployedServ_&year PopEmployedSales_&year
+			PopEmployedNatRes_&year PopEmployedProd_&year
+			ward2012);
 run;
 
 proc export data = ACS_ward_n outfile = "L:\Libraries\Bridgepk\Data\ACS_ward_n.csv" dbms = csv replace;
 run;
 
+
 ** Pull ACS Estimates for BP Areas **;
 
-data ACS_bpk (keep= bridgepk ShrLaborForce_&year ShrEmpRate_&year ShrUnEmpRate_&year
-ShrPov_&year ShrHS_&year ShrCol_&year ShrWht_&year ShrBlk_&year ShrHisp_&year 
-ShrAsn_&year ShrOth_&year);
-set ACS.acs_2011_15_dc_sum_tr_bpk (keep= popincivlaborforce_&year
-pop16andoveryears_&year popcivilianemployed_&year popunemployed_&year 
-poppoorpersons_&year personspovertydefined_&year popwithrace_&year 
-popwhitenonhispbridge_&year popblacknonhispbridge_&year pophisp_&year 
-popasianpinonhispbridge_&year popotherracenonhispbridg_&year 
-pop25andoveryears_&year pop25andoverwhs_&year pop25andoverwcollege_&year 
-bridgepk);
+data ACS_bpk 
+	(keep= bridgepk ShrLaborForce_&year ShrEmpRate_&year ShrUnEmpRate_&year
+	ShrPov_&year ShrHS_&year ShrCol_&year ShrWht_&year ShrBlk_&year ShrHisp_&year 
+	ShrAsn_&year ShrOth_&year 
+	ShrEmpMngmt_&year ShrEmpNatRes_&year ShrEmpProd_&year ShrEmpSales_&year ShrEmpServ_&year
+	ShrEmpAgric_&year ShrEmpConstr_&year ShrEmpManuf_&year ShrEmpWhlsale_&year 
+	ShrEmpRetail_&year ShrEmpTransprt_&year ShrEmpInfo_&year ShrEmpFinance_&year
+	ShrEmpProfServ_&year ShrEmpEduction_&year ShrEmpArts_&year ShrEmpOther_&year
+	ShrEmpPubAdmin_&year 
+	ShrHomeownership_&year ShrRenterCostBurden_&year ShrRentSevereCostBurden_&year 
+	ShrOwnerCostBurden_&year ShrOwnSevereCostBurden_&year
+	);
 
-/*Employment and Poverty*/
-ShrPov_&year = poppoorpersons_&year / personspovertydefined_&year;
-ShrLaborForce_&year = popincivlaborforce_&year / pop16andoveryears_&year;
-ShrEmpRate_&year = popcivilianemployed_&year / popincivlaborforce_&year;
-ShrUnEmpRate_&year = popunemployed_&year / popincivlaborforce_&year;
-ShrEmpMngmt_&year = popemployedmngmt_&year / popemployedbyocc_2011_15;
-ShrEmpNatRes_&year = popemployednatres_&year / popemployedbyocc_2011_15;
-ShrEmpProd_&year = popemployedprod_&year / popemployedbyocc_2011_15;
-ShrEmpSales_&year = popemployedsales_&year / popemployedbyocc_2011_15;
-ShrEmpServ_&year = popemployedserv_&year / popemployedbyocc_2011_15;
+	set ACS.acs_2011_15_dc_sum_tr_bpk 
+	(keep= popincivlaborforce_&year
+	pop16andoveryears_&year popcivilianemployed_&year popunemployed_&year 
+	poppoorpersons_&year personspovertydefined_&year popwithrace_&year 
+	popwhitenonhispbridge_&year popblacknonhispbridge_&year pophisp_&year 
+	popasianpinonhispbridge_&year popotherracenonhispbridg_&year 
+	pop25andoveryears_&year pop25andoverwhs_&year pop25andoverwcollege_&year 
+	popemployedmngmt_&year popemployednatres_&year popemployedprod_&year 
+	popemployedsales_&year popemployedserv_&year popemployedbyocc_&year
+	numrenteroccupiedhu_&year numowneroccupiedhu_&year numoccupiedhsgunits_&year 
+	NumRenterCostBurden_&year NumRentSevereCostBurden_&year NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
+	PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
+	PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
+	PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
+	PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
+	PopEmployedOther_&year PopEmployedPubAdmin_&year
+	PopEmployedByOcc_&year PopEmployedMngmt_&year
+	PopEmployedServ_&year PopEmployedSales_&year
+	PopEmployedNatRes_&year PopEmployedProd_&year bridgepk );
 
+	/*Labor force, employment, and poverty*/
+		ShrLaborForce_&year = popincivlaborforce_&year / pop16andoveryears_&year;
+		ShrEmpRate_&year = popcivilianemployed_&year / popincivlaborforce_&year;
+		ShrUnEmpRate_&year = popunemployed_&year / popincivlaborforce_&year;
+		ShrPov_&year = poppoorpersons_&year / personspovertydefined_&year;
 
-/*Homeowneship, Cost Burden, and Gross Rent*/
-ShrHomeownership_&year = numowneroccupiedhu_&year / numoccupiedhsgunits_&year;
+	/*Employment by major occupations*/
+		ShrEmpMngmt_&year = popemployedmngmt_&year / popemployedbyocc_2011_15;
+		ShrEmpNatRes_&year = popemployednatres_&year / popemployedbyocc_2011_15;
+		ShrEmpProd_&year = popemployedprod_&year / popemployedbyocc_2011_15;
+		ShrEmpSales_&year = popemployedsales_&year / popemployedbyocc_2011_15;
+		ShrEmpServ_&year = popemployedserv_&year / popemployedbyocc_2011_15;
 
-/*Education*/
-ShrHS_&year = pop25andoverwhs_&year / pop25andoveryears_&year;
-ShrCol_&year = pop25andoverwcollege_&year / pop25andoveryears_&year;
+	/*Employment by major industries*/
+		ShrEmpAgric_&year = PopEmployedAgric_&year / popemployedbyind_2011_15;
+		ShrEmpConstr_&year = PopEmployedConstr_&year / popemployedbyind_2011_15;
+		ShrEmpManuf_&year = PopEmployedManuf_&year / popemployedbyind_2011_15;
+		ShrEmpWhlsale_&year = PopEmployedWhlsale_&year / popemployedbyind_2011_15;
+		ShrEmpRetail_&year = PopEmployedRetail_&year / popemployedbyind_2011_15;
+		ShrEmpTransprt_&year = PopEmployedTransprt_&year / popemployedbyind_2011_15;
+		ShrEmpInfo_&year = PopEmployedInfo_&year / popemployedbyind_2011_15;
+		ShrEmpFinance_&year = PopEmployedFinance_&year / popemployedbyind_2011_15;
+		ShrEmpProfServ_&year = PopEmployedProfServ_&year / popemployedbyind_2011_15;
+		ShrEmpEduction_&year = PopEmployedEduction_&year / popemployedbyind_2011_15;
+		ShrEmpArts_&year = PopEmployedArts_&year / popemployedbyind_2011_15;
+		ShrEmpOther_&year = PopEmployedOther_&year / popemployedbyind_2011_15;
+		ShrEmpPubAdmin_&year = PopEmployedPubAdmin_&year / popemployedbyind_2011_15;
 
-/*Race*/
-ShrWht_&year = popwhitenonhispbridge_&year / popwithrace_&year;
-ShrBlk_&year = popblacknonhispbridge_&year / popwithrace_&year;
-ShrHisp_&year = pophisp_&year / popwithrace_&year;
-ShrAsn_&year = popasianpinonhispbridge_&year / popwithrace_&year;
-ShrOth_&year = popotherracenonhispbridg_&year / popwithrace_&year;
+	/*Homeownership, rent, and cost burden*/
+		ShrHomeownership_&year = numowneroccupiedhu_&year / numoccupiedhsgunits_&year;
+		ShrRenterCostBurden_&year = NumRenterCostBurden_&year/numrenteroccupiedhu_&year;
+		ShrRentSevereCostBurden_&year = NumRentSevereCostBurden_&year/numrenteroccupiedhu_&year;
+		ShrOwnerCostBurden_&year = NumOwnerCostBurden_&year/numowneroccupiedhu_&year;
+		ShrOwnSevereCostBurden_&year = NumOwnSevereCostBurden_&year/numowneroccupiedhu_&year;
+
+	/*Education*/
+		ShrHS_&year = pop25andoverwhs_&year / pop25andoveryears_&year;
+		ShrCol_&year = pop25andoverwcollege_&year / pop25andoveryears_&year;
+
+	/*Race and ethnicity*/
+		ShrWht_&year = popwhitenonhispbridge_&year / popwithrace_&year;
+		ShrBlk_&year = popblacknonhispbridge_&year / popwithrace_&year;
+		ShrHisp_&year = pophisp_&year / popwithrace_&year;
+		ShrAsn_&year = popasianpinonhispbridge_&year / popwithrace_&year;
+		ShrOth_&year = popotherracenonhispbridg_&year / popwithrace_&year;
 
 run;
 
 proc export data = ACS_bpk outfile = "L:\Libraries\Bridgepk\Data\ACS_bpk_pct.csv" dbms = csv replace;
 run;
 
-data ACS_bpk_n (keep= bridgepk pop16andoveryears_&year popincivlaborforce_&year
-personspovertydefined_&year pop25andoveryears_&year popwithrace_&year
-numrenterhsgunits_&year);
-set ACS.acs_2011_15_dc_sum_tr_bpk (keep= pop16andoveryears_&year 
-popincivlaborforce_&year personspovertydefined_&year 
-pop25andoveryears_&year popwithrace_&year numrenterhsgunits_&year bridgepk);
-
+data ACS_bpk_n 
+	(keep= bridgepk pop16andoveryears_&year popincivlaborforce_&year
+			personspovertydefined_&year pop25andoveryears_&year popwithrace_&year
+			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
+			NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+			NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
+			GrossRentLT100_499_&year GrossRent500_799_&year GrossRent800_899_&year 
+			GrossRent900_999_&year GrossRent1000_1249_&year GrossRent1250_1499_&year 
+			GrossRent1500_1999_&year GrossRent2000_2499_&year GrossRent2500_2999_&year 
+			GrossRent3000_3499_&year GrossRentGT3500_&year 
+			PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
+			PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
+			PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
+			PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
+			PopEmployedOther_&year PopEmployedPubAdmin_&year
+			PopEmployedByOcc_&year PopEmployedMngmt_&year
+			PopEmployedServ_&year PopEmployedSales_&year
+			PopEmployedNatRes_&year PopEmployedProd_&year);
+	set ACS.acs_2011_15_dc_sum_tr_bpk 
+	(keep= pop16andoveryears_&year 
+			popincivlaborforce_&year personspovertydefined_&year 
+			pop25andoveryears_&year popwithrace_&year 
+			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
+			GrossRent: NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+			NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
+			PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
+			PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
+			PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
+			PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
+			PopEmployedOther_&year PopEmployedPubAdmin_&year
+			PopEmployedByOcc_&year PopEmployedMngmt_&year
+			PopEmployedServ_&year PopEmployedSales_&year
+			PopEmployedNatRes_&year PopEmployedProd_&year
+			bridgepk);
 run;
 
 proc export data = ACS_bpk_n outfile = "L:\Libraries\Bridgepk\Data\ACS_bpk_n.csv" dbms = csv replace;
 run;
+
 
 ** Pull Real Prop Units for City**;
 data RealProp_sf_units_city;
