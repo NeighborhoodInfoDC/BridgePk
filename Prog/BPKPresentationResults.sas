@@ -136,7 +136,11 @@ data ACS_city_n
 			popincivlaborforce_&year personspovertydefined_&year 
 			pop25andoveryears_&year popwithrace_&year 
 			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
-			GrossRent: NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+			GrossRentLT100_499_&year GrossRent500_799_&year GrossRent800_899_&year 
+			GrossRent900_999_&year GrossRent1000_1249_&year GrossRent1250_1499_&year 
+			GrossRent1500_1999_&year GrossRent2000_2499_&year GrossRent2500_2999_&year 
+			GrossRent3000_3499_&year GrossRentGT3500_&year
+			NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
 			NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
 			PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
 			PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
@@ -264,7 +268,11 @@ data ACS_ward_n
 			popincivlaborforce_&year personspovertydefined_&year 
 			pop25andoveryears_&year popwithrace_&year 
 			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
-			GrossRent: NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+			GrossRentLT100_499_&year GrossRent500_799_&year GrossRent800_899_&year 
+			GrossRent900_999_&year GrossRent1000_1249_&year GrossRent1250_1499_&year 
+			GrossRent1500_1999_&year GrossRent2000_2499_&year GrossRent2500_2999_&year 
+			GrossRent3000_3499_&year GrossRentGT3500_&year
+			NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
 			NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
 			PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
 			PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
@@ -391,7 +399,11 @@ data ACS_bpk_n
 			popincivlaborforce_&year personspovertydefined_&year 
 			pop25andoveryears_&year popwithrace_&year 
 			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
-			GrossRent: NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+			GrossRentLT100_499_&year GrossRent500_799_&year GrossRent800_899_&year 
+			GrossRent900_999_&year GrossRent1000_1249_&year GrossRent1250_1499_&year 
+			GrossRent1500_1999_&year GrossRent2000_2499_&year GrossRent2500_2999_&year 
+			GrossRent3000_3499_&year GrossRentGT3500_&year
+			NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
 			NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
 			PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
 			PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
