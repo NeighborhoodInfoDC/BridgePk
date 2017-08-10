@@ -28,8 +28,8 @@
 
 ** Pull ACS Estimates for city **;
 
-data ACS_city 
-	(keep= city ShrLaborForce_&year ShrEmpRate_&year ShrUnEmpRate_&year
+data ACS_regcnt 
+	(keep= county ShrLaborForce_&year ShrEmpRate_&year ShrUnEmpRate_&year
 	ShrPov_&year ShrHS_&year ShrCol_&year ShrWht_&year ShrBlk_&year ShrHisp_&year 
 	ShrAsn_&year ShrOth_&year 
 	ShrEmpMngmt_&year ShrEmpNatRes_&year ShrEmpProd_&year ShrEmpSales_&year ShrEmpServ_&year
@@ -41,7 +41,7 @@ data ACS_city
 	ShrOwnerCostBurden_&year ShrOwnSevereCostBurden_&year
 	);
 
-	set ACS.acs_2011_15_dc_sum_tr_city 
+	set ACS.acs_2011_15_dc_sum_regcnt_regcnt
 	(keep= popincivlaborforce_&year
 	pop16andoveryears_&year popcivilianemployed_&year popunemployed_&year 
 	poppoorpersons_&year personspovertydefined_&year popwithrace_&year 
@@ -60,7 +60,7 @@ data ACS_city
 	PopEmployedOther_&year PopEmployedPubAdmin_&year
 	PopEmployedByOcc_&year PopEmployedMngmt_&year
 	PopEmployedServ_&year PopEmployedSales_&year
-	PopEmployedNatRes_&year PopEmployedProd_&year city );
+	PopEmployedNatRes_&year PopEmployedProd_&year county );
 
 	/*Labor force, employment, and poverty*/
 		ShrLaborForce_&year = popincivlaborforce_&year / pop16andoveryears_&year;
@@ -110,11 +110,11 @@ data ACS_city
 
 run;
 
-proc export data = ACS_city outfile = "L:\Libraries\Bridgepk\Data\ACS_city_pct.csv" dbms = csv replace;
+proc export data = ACS_regcnt outfile = "L:\Libraries\Bridgepk\Data\ACS_county_pct.csv" dbms = csv replace;
 run;
 
-data ACS_city_n 
-	(keep= city pop16andoveryears_&year popincivlaborforce_&year
+data ACS_regcnt_n 
+	(keep= county pop16andoveryears_&year popincivlaborforce_&year
 			personspovertydefined_&year pop25andoveryears_&year popwithrace_&year
 			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
 			NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
@@ -131,7 +131,7 @@ data ACS_city_n
 			PopEmployedByOcc_&year PopEmployedMngmt_&year
 			PopEmployedServ_&year PopEmployedSales_&year
 			PopEmployedNatRes_&year PopEmployedProd_&year);
-	set ACS.acs_2011_15_dc_sum_tr_city 
+	set ACS.acs_2011_15_dc_sum_regcnt_regcnt
 	(keep= pop16andoveryears_&year 
 			popincivlaborforce_&year personspovertydefined_&year 
 			pop25andoveryears_&year popwithrace_&year 
@@ -150,11 +150,11 @@ data ACS_city_n
 			PopEmployedByOcc_&year PopEmployedMngmt_&year
 			PopEmployedServ_&year PopEmployedSales_&year
 			PopEmployedNatRes_&year PopEmployedProd_&year
-			city);
+			county);
 
 run;
 
-proc export data = ACS_city_n outfile = "L:\Libraries\Bridgepk\Data\ACS_city_n.csv" dbms = csv replace;
+proc export data = ACS_county_n outfile = "L:\Libraries\Bridgepk\Data\ACS_county_n.csv" dbms = csv replace;
 run;
 
 ** Pull ACS Estimates for wards **;
