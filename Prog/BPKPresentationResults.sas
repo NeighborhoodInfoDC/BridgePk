@@ -28,7 +28,7 @@
 
 ** Pull ACS Estimates for city **;
 
-data ACS_regcnt 
+data ACS_county 
 	(keep= county ShrLaborForce_&year ShrEmpRate_&year ShrUnEmpRate_&year
 	ShrPov_&year ShrHS_&year ShrCol_&year ShrWht_&year ShrBlk_&year ShrHisp_&year 
 	ShrAsn_&year ShrOth_&year 
@@ -110,10 +110,10 @@ data ACS_regcnt
 
 run;
 
-proc export data = ACS_regcnt outfile = "L:\Libraries\Bridgepk\Data\ACS_county_pct.csv" dbms = csv replace;
+proc export data = ACS_county outfile = "L:\Libraries\Bridgepk\Data\ACS_county_pct.csv" dbms = csv replace;
 run;
 
-data ACS_regcnt_n 
+data ACS_county_n 
 	(keep= county pop16andoveryears_&year popincivlaborforce_&year
 			personspovertydefined_&year pop25andoveryears_&year popwithrace_&year
 			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
