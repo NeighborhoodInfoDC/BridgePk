@@ -64,7 +64,7 @@ run;
 
 ** Merge SSLs from DC Parcel data with Real Property Data. Will be joined with the DC Parcel Shapefile in ArcMap **;
 
-data dc_parcel;
+data parcel_geo_owns;
 
 	merge common_lots (keep = SSL) /*base*/ geo who_owns dc_owned;
 	by SSL;
@@ -72,8 +72,8 @@ data dc_parcel;
 run;
 
 %Finalize_data_set( 
-  data=dc_parcel,
-  out=dc_parcel,
+  data=parcel_geo_owns,
+  out=parcel_geo_owns,
   outlib=BridgePk,
   label=Bridge Park parcel map,
   sortby=ssl,
@@ -93,21 +93,21 @@ run;
 
 ** Create a test merge using full DC Parcel data to check unmatched parcels **;
 
-data dc_parcel_test;
+data parcel_geo_owns_test;
 
 	merge common_lots /*base*/ geo who_owns dc_owned;
 	by SSL;
 
 run;
 
-data dc_parcel_test;
+data parcel_geo_owns_test;
 
-	set dc_parcel_test;
+	set parcel_geo_owns_test;
 	%block10_to_bpk( );
 
 run;
 
-  proc print data= dc_parcel_test n='Total unmatched = ';
+  proc print data= parcel_geo_owns_test n='Total unmatched = ';
     where missing( ward2012 );
     id SSL ;
     var Address1 condolot ownercat;
