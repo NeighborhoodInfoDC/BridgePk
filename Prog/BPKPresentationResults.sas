@@ -9,6 +9,7 @@
  
  Description:  Prepare data for initial 11th Street Bridge Park Data Room
 			   Presentation on 3/27/2017, from ACS, Realprop, and Police
+			   11/9/2017: Added 
 
 **************************************************************************/
 
@@ -26,7 +27,11 @@
 %let year = 2011_15;
 %let year_lbl = 2011-15;
 
-** Pull ACS Estimates for city **;
+/* Temporarily deactivating county output because ACS tabs for housing cost burden and employment are not being produced for county geography*/
+
+/*
+
+** Pull ACS Estimates for county **;
 
 data ACS_regcnt 
 	(keep= county ShrLaborForce_&year ShrEmpRate_&year ShrUnEmpRate_&year
@@ -80,11 +85,11 @@ data ACS_regcnt
 	NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
 	NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
 	NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
-	NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99_&year 
+	NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
 	NumRentCstBurden_GT100K_&year 
 	NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
 	NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
-	NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99_&year 
+	NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
 	NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
 	PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
 	PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
@@ -102,6 +107,270 @@ data ACS_regcnt
 	PopEmployedTravel_35_39_&year PopEmployedTravel_40_44_&year 
 	PopEmployedTravel_45_59_&year PopEmployedTravel_60_89_&year 
 	PopEmployedTravel_GT90_&year county );
+
+
+	/*Labor force, employment, and poverty*/ /*
+		ShrLaborForce_&year = popincivlaborforce_&year / pop16andoveryears_&year;
+		ShrEmpRate_&year = popcivilianemployed_&year / popincivlaborforce_&year;
+		ShrUnEmpRate_&year = popunemployed_&year / popincivlaborforce_&year;
+		ShrPov_&year = poppoorpersons_&year / personspovertydefined_&year;
+
+	
+	/*Employment by major occupations*/ /*
+		ShrEmpMngmt_&year = popemployedmngmt_&year / popemployedbyocc_2011_15;
+		ShrEmpNatRes_&year = popemployednatres_&year / popemployedbyocc_2011_15;
+		ShrEmpProd_&year = popemployedprod_&year / popemployedbyocc_2011_15;
+		ShrEmpSales_&year = popemployedsales_&year / popemployedbyocc_2011_15;
+		ShrEmpServ_&year = popemployedserv_&year / popemployedbyocc_2011_15;
+
+	/*Employment by major industries*/ /*
+		ShrEmpAgric_&year = PopEmployedAgric_&year / popemployedbyind_&year;
+		ShrEmpConstr_&year = PopEmployedConstr_&year / popemployedbyind_&year;
+		ShrEmpManuf_&year = PopEmployedManuf_&year / popemployedbyind_&year;
+		ShrEmpWhlsale_&year = PopEmployedWhlsale_&year / popemployedbyind_&year;
+		ShrEmpRetail_&year = PopEmployedRetail_&year / popemployedbyind_&year;
+		ShrEmpTransprt_&year = PopEmployedTransprt_&year / popemployedbyind_&year;
+		ShrEmpInfo_&year = PopEmployedInfo_&year / popemployedbyind_&year;
+		ShrEmpFinance_&year = PopEmployedFinance_&year / popemployedbyind_&year;
+		ShrEmpProfServ_&year = PopEmployedProfServ_&year / popemployedbyind_&year;
+		ShrEmpEduction_&year = PopEmployedEduction_&year / popemployedbyind_&year;
+		ShrEmpArts_&year = PopEmployedArts_&year / popemployedbyind_&year;
+		ShrEmpOther_&year = PopEmployedOther_&year / popemployedbyind_&year;
+		ShrEmpPubAdmin_&year = PopEmployedPubAdmin_&year / popemployedbyind_&year;
+
+	/*Employment by place of work*/ /*
+
+		ShrEmployedWorkInState_&year = PopEmployedWorkInState_&year / PopEmployedWorkers_&year;
+		ShrEmployedWorkOutState_&year = PopEmployedWorkOutState_&year / PopEmployedWorkers_&year;
+
+	/*Employment by travel time to work*/ /*
+
+		ShrEmployedTravel_LT5_&year = PopEmployedTravel_LT5_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_5_9_&year = PopEmployedTravel_5_9_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_10_14_&year = PopEmployedTravel_10_14_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_15_19_&year = PopEmployedTravel_15_19_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_20_24_&year = PopEmployedTravel_20_24_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_25_29_&year = PopEmployedTravel_25_29_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_30_34_&year = PopEmployedTravel_30_34_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_35_39_&year = PopEmployedTravel_35_39_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_40_44_&year = PopEmployedTravel_40_44_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_45_59_&year = PopEmployedTravel_45_59_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_60_89_&year = PopEmployedTravel_60_89_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_GT90_&year = PopEmployedTravel_GT90_&year / PopEmployedTravel_&year;
+
+	/*Homeownership, rent, and cost burden by age of householder and household income*/ /*
+		ShrHomeownership_&year = numowneroccupiedhu_&year / numoccupiedhsgunits_&year;
+		ShrRenterCostBurden_&year = NumRenterCostBurden_&year/RentCostBurdenDenom_&year;
+		ShrRentSevereCostBurden_&year = NumRentSevereCostBurden_&year/RentCostBurdenDenom_&year;
+		ShrOwnerCostBurden_&year = NumOwnerCostBurden_&year/OwnerCostBurdenDenom_&year;
+		ShrOwnSevereCostBurden_&year = NumOwnSevereCostBurden_&year/OwnerCostBurdenDenom_&year;
+
+		ShrRentCstBurden_15_24_&year = NumRentCstBurden_15_24_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_25_34_&year = NumRentCstBurden_25_34_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_35_64_&year = NumRentCstBurden_35_64_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_65Over_&year = NumRentCstBurden_65Over_&year / RentCostBurdenDenom_&year;
+
+		ShrOwnCstBurden_15_24_&year = NumOwnCstBurden_15_24_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_25_34_&year = NumOwnCstBurden_25_34_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_35_64_&year = NumOwnCstBurden_35_64_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_65Over_&year = NumOwnCstBurden_65Over_&year / OwnerCostBurdenDenom_&year;
+
+		ShrRentCstBurden_LT10K_&year = NumRentCstBurden_LT10K_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_10_19K_&year = NumRentCstBurden_10_19K_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_20_35K_&year = NumRentCstBurden_20_35K_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_35_50K_&year = NumRentCstBurden_35_50K_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_50_75K_&year = NumRentCstBurden_50_75K_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_75_100_&year = NumRentCstBurden_75_100_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_GT100K_&year = NumRentCstBurden_GT100K_&year / RentCostBurdenDenom_&year;
+
+		ShrOwnCstBurden_LT10K_&year = NumOwnCstBurden_LT10K_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_10_19K_&year = NumOwnCstBurden_10_19K_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_20_35K_&year = NumOwnCstBurden_20_35K_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_35_50K_&year = NumOwnCstBurden_35_50K_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_50_75K_&year = NumOwnCstBurden_50_75K_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_75_100_&year = NumOwnCstBurden_75_100_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_100_149_&year = NumOwnCstBurden_100_149_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_GT150K_&year = NumOwnCstBurden_GT150K_&year / OwnerCostBurdenDenom_&year;
+
+	/*Education*/ /*
+		ShrHS_&year = pop25andoverwhs_&year / pop25andoveryears_&year;
+		ShrCol_&year = pop25andoverwcollege_&year / pop25andoveryears_&year;
+
+	/*Race and ethnicity*/ /*
+		ShrWht_&year = popwhitenonhispbridge_&year / popwithrace_&year;
+		ShrBlk_&year = popblacknonhispbridge_&year / popwithrace_&year;
+		ShrHisp_&year = pophisp_&year / popwithrace_&year;
+		ShrAsn_&year = popasianpinonhispbridge_&year / popwithrace_&year;
+		ShrOth_&year = popotherracenonhispbridg_&year / popwithrace_&year;
+
+run;
+
+proc export data = ACS_county outfile = "L:\Libraries\Bridgepk\Data\ACS_county_pct.csv" dbms = csv replace;
+run;
+
+data ACS_regcnt_n 
+	(keep= county pop16andoveryears_&year popincivlaborforce_&year
+			personspovertydefined_&year pop25andoveryears_&year popwithrace_&year
+			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
+			NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+			NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
+			GrossRentLT100_499_&year GrossRent500_799_&year GrossRent800_899_&year 
+			GrossRent900_999_&year GrossRent1000_1249_&year GrossRent1250_1499_&year 
+			GrossRent1500_1999_&year GrossRent2000_2499_&year GrossRent2500_2999_&year 
+			GrossRent3000_3499_&year GrossRentGT3500_&year 
+			PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
+			PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
+			PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
+			PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
+			PopEmployedOther_&year PopEmployedPubAdmin_&year
+			PopEmployedByOcc_&year PopEmployedMngmt_&year
+			PopEmployedServ_&year PopEmployedSales_&year
+			PopEmployedNatRes_&year PopEmployedProd_&year
+			NumRentCstBurden_15_24_&year NumRentCstBurden_25_34_&year 
+			NumRentCstBurden_35_64_&year NumRentCstBurden_65Over_&year 
+			NumOwnCstBurden_15_24_&year NumOwnCstBurden_25_34_&year 
+			NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
+			NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
+			NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
+			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
+			NumRentCstBurden_GT100K_&year 
+			NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
+			NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
+			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
+			NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
+			PopEmployedWorkers_&year PopEmployedWorkInState_&year PopEmployedWorkOutState_&year
+			PopEmployedTravel_&year PopEmployedTravel_LT5_&year
+			PopEmployedTravel_5_9_&year PopEmployedTravel_10_14_&year
+			PopEmployedTravel_15_19_&year PopEmployedTravel_20_24_&year 
+			PopEmployedTravel_25_29_&year PopEmployedTravel_30_34_&year 
+			PopEmployedTravel_35_39_&year PopEmployedTravel_40_44_&year 
+			PopEmployedTravel_45_59_&year PopEmployedTravel_60_89_&year 
+			PopEmployedTravel_GT90_&year
+			);
+	set ACS.acs_2011_15_dc_sum_regcnt_regcnt
+	(keep= pop16andoveryears_&year 
+			popincivlaborforce_&year personspovertydefined_&year 
+			pop25andoveryears_&year popwithrace_&year 
+			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
+			GrossRentLT100_499_&year GrossRent500_799_&year GrossRent800_899_&year 
+			GrossRent900_999_&year GrossRent1000_1249_&year GrossRent1250_1499_&year 
+			GrossRent1500_1999_&year GrossRent2000_2499_&year GrossRent2500_2999_&year 
+			GrossRent3000_3499_&year GrossRentGT3500_&year
+			NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+			NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
+			PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
+			PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
+			PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
+			PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
+			PopEmployedOther_&year PopEmployedPubAdmin_&year
+			PopEmployedByOcc_&year PopEmployedMngmt_&year
+			PopEmployedServ_&year PopEmployedSales_&year
+			PopEmployedNatRes_&year PopEmployedProd_&year
+			NumRentCstBurden_15_24_&year NumRentCstBurden_25_34_&year 
+			NumRentCstBurden_35_64_&year NumRentCstBurden_65Over_&year 
+			NumOwnCstBurden_15_24_&year NumOwnCstBurden_25_34_&year 
+			NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
+			NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
+			NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
+			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
+			NumRentCstBurden_GT100K_&year 
+			NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
+			NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
+			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
+			NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
+			PopEmployedWorkers_&year PopEmployedWorkInState_&year PopEmployedWorkOutState_&year
+			PopEmployedTravel_&year PopEmployedTravel_LT5_&year
+			PopEmployedTravel_5_9_&year PopEmployedTravel_10_14_&year
+			PopEmployedTravel_15_19_&year PopEmployedTravel_20_24_&year 
+			PopEmployedTravel_25_29_&year PopEmployedTravel_30_34_&year 
+			PopEmployedTravel_35_39_&year PopEmployedTravel_40_44_&year 
+			PopEmployedTravel_45_59_&year PopEmployedTravel_60_89_&year 
+			PopEmployedTravel_GT90_&year
+			county);
+
+run;
+
+proc export data = ACS_county_n outfile = "L:\Libraries\Bridgepk\Data\ACS_county_n.csv" dbms = csv replace;
+run;
+
+*/
+
+** Pull ACS Estimates for city - tract-level vars **;
+
+data ACS_city 
+	(keep= city ShrLaborForce_&year ShrEmpRate_&year ShrUnEmpRate_&year
+	ShrPov_&year ShrHS_&year ShrCol_&year ShrWht_&year ShrBlk_&year ShrHisp_&year 
+	ShrAsn_&year ShrOth_&year 
+	ShrEmpMngmt_&year ShrEmpNatRes_&year ShrEmpProd_&year ShrEmpSales_&year ShrEmpServ_&year
+	ShrEmpAgric_&year ShrEmpConstr_&year ShrEmpManuf_&year ShrEmpWhlsale_&year 
+	ShrEmpRetail_&year ShrEmpTransprt_&year ShrEmpInfo_&year ShrEmpFinance_&year
+	ShrEmpProfServ_&year ShrEmpEduction_&year ShrEmpArts_&year ShrEmpOther_&year
+	ShrEmpPubAdmin_&year 
+	ShrHomeownership_&year ShrRenterCostBurden_&year ShrRentSevereCostBurden_&year 
+	ShrOwnerCostBurden_&year ShrOwnSevereCostBurden_&year
+	ShrRentCstBurden_15_24_&year ShrRentCstBurden_25_34_&year 
+	ShrRentCstBurden_35_64_&year ShrRentCstBurden_65Over_&year 
+	ShrOwnCstBurden_15_24_&year ShrOwnCstBurden_25_34_&year 
+	ShrOwnCstBurden_35_64_&year ShrOwnCstBurden_65Over_&year 
+	ShrRentCstBurden_LT10K_&year ShrRentCstBurden_10_19K_&year 
+	ShrRentCstBurden_20_34K_&year ShrRentCstBurden_35_49K_&year 
+	ShrRentCstBurden_50_74K_&year ShrRentCstBurden_75_99_&year 
+	ShrRentCstBurden_GT100K_&year 
+	ShrOwnCstBurden_LT10K_&year ShrOwnCstBurden_10_19K_&year 
+	ShrOwnCstBurden_20_34K_&year ShrOwnCstBurden_35_49K_&year 
+	ShrOwnCstBurden_50_74K_&year ShrOwnCstBurden_75_99_&year 
+	ShrOwnCstBurden_100_149_&year ShrOwnCstBurden_GT150K_&year 
+	ShrEmployedWorkInState_&year ShrEmployedWorkOutState_&year
+	ShrEmployedTravel_&year ShrEmployedTravel_LT5_&year
+	ShrEmployedTravel_5_9_&year ShrEmployedTravel_10_14_&year
+	ShrEmployedTravel_15_19_&year ShrEmployedTravel_20_24_&year 
+	ShrEmployedTravel_25_29_&year ShrEmployedTravel_30_34_&year 
+	ShrEmployedTravel_35_39_&year ShrEmployedTravel_40_44_&year 
+	ShrEmployedTravel_45_59_&year ShrEmployedTravel_60_89_&year 
+	ShrEmployedTravel_GT90_&year
+	);
+
+	set ACS.acs_2011_15_dc_sum_tr_city
+	(keep= popincivlaborforce_&year
+	pop16andoveryears_&year popcivilianemployed_&year popunemployed_&year 
+	poppoorpersons_&year personspovertydefined_&year popwithrace_&year 
+	popwhitenonhispbridge_&year popblacknonhispbridge_&year pophisp_&year 
+	popasianpinonhispbridge_&year popotherracenonhispbridg_&year 
+	pop25andoveryears_&year pop25andoverwhs_&year pop25andoverwcollege_&year 
+	popemployedmngmt_&year popemployednatres_&year popemployedprod_&year 
+	popemployedsales_&year popemployedserv_&year popemployedbyocc_&year
+	numrenteroccupiedhu_&year numowneroccupiedhu_&year numoccupiedhsgunits_&year
+	RentCostBurdenDenom_&year OwnerCostBurdenDenom_&year 
+	NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+	NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
+	NumRentCstBurden_15_24_&year NumRentCstBurden_25_34_&year 
+	NumRentCstBurden_35_64_&year NumRentCstBurden_65Over_&year 
+	NumOwnCstBurden_15_24_&year NumOwnCstBurden_25_34_&year 
+	NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
+	NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
+	NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
+	NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
+	NumRentCstBurden_GT100K_&year 
+	NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
+	NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
+	NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
+	NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
+	PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
+	PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
+	PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
+	PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
+	PopEmployedOther_&year PopEmployedPubAdmin_&year
+	PopEmployedByOcc_&year PopEmployedMngmt_&year
+	PopEmployedServ_&year PopEmployedSales_&year
+	PopEmployedNatRes_&year PopEmployedProd_&year 
+	PopEmployedWorkers_&year PopEmployedWorkInState_&year PopEmployedWorkOutState_&year
+	PopEmployedTravel_&year PopEmployedTravel_LT5_&year
+	PopEmployedTravel_5_9_&year PopEmployedTravel_10_14_&year
+	PopEmployedTravel_15_19_&year PopEmployedTravel_20_24_&year 
+	PopEmployedTravel_25_29_&year PopEmployedTravel_30_34_&year 
+	PopEmployedTravel_35_39_&year PopEmployedTravel_40_44_&year 
+	PopEmployedTravel_45_59_&year PopEmployedTravel_60_89_&year 
+	PopEmployedTravel_GT90_&year city );
 
 	/*Labor force, employment, and poverty*/
 		ShrLaborForce_&year = popincivlaborforce_&year / pop16andoveryears_&year;
@@ -198,11 +467,11 @@ data ACS_regcnt
 
 run;
 
-proc export data = ACS_county outfile = "L:\Libraries\Bridgepk\Data\ACS_county_pct.csv" dbms = csv replace;
+proc export data = ACS_city outfile = "L:\Libraries\Bridgepk\Data\ACS_city_pct.csv" dbms = csv replace;
 run;
 
-data ACS_regcnt_n 
-	(keep= county pop16andoveryears_&year popincivlaborforce_&year
+data ACS_city_n 
+	(keep= city pop16andoveryears_&year popincivlaborforce_&year
 			personspovertydefined_&year pop25andoveryears_&year popwithrace_&year
 			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
 			NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
@@ -225,11 +494,11 @@ data ACS_regcnt_n
 			NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
 			NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
 			NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
-			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99_&year 
+			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
 			NumRentCstBurden_GT100K_&year 
 			NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
 			NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
-			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99_&year 
+			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
 			NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
 			PopEmployedWorkers_&year PopEmployedWorkInState_&year PopEmployedWorkOutState_&year
 			PopEmployedTravel_&year PopEmployedTravel_LT5_&year
@@ -240,7 +509,7 @@ data ACS_regcnt_n
 			PopEmployedTravel_45_59_&year PopEmployedTravel_60_89_&year 
 			PopEmployedTravel_GT90_&year
 			);
-	set ACS.acs_2011_15_dc_sum_regcnt_regcnt
+	set ACS.acs_2011_15_dc_sum_tr_city
 	(keep= pop16andoveryears_&year 
 			popincivlaborforce_&year personspovertydefined_&year 
 			pop25andoveryears_&year popwithrace_&year 
@@ -265,11 +534,11 @@ data ACS_regcnt_n
 			NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
 			NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
 			NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
-			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99_&year 
+			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
 			NumRentCstBurden_GT100K_&year 
 			NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
 			NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
-			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99_&year 
+			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
 			NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
 			PopEmployedWorkers_&year PopEmployedWorkInState_&year PopEmployedWorkOutState_&year
 			PopEmployedTravel_&year PopEmployedTravel_LT5_&year
@@ -279,12 +548,277 @@ data ACS_regcnt_n
 			PopEmployedTravel_35_39_&year PopEmployedTravel_40_44_&year 
 			PopEmployedTravel_45_59_&year PopEmployedTravel_60_89_&year 
 			PopEmployedTravel_GT90_&year
-			county);
+			city);
 
 run;
 
-proc export data = ACS_county_n outfile = "L:\Libraries\Bridgepk\Data\ACS_county_n.csv" dbms = csv replace;
+proc export data = ACS_city_n outfile = "L:\Libraries\Bridgepk\Data\ACS_city_n.csv" dbms = csv replace;
 run;
+
+
+
+** Pull ACS Estimates for city - bg-level vars **;
+
+data ACS_city 
+	(keep= city ShrLaborForce_&year ShrEmpRate_&year ShrUnEmpRate_&year
+	ShrPov_&year ShrHS_&year ShrCol_&year ShrWht_&year ShrBlk_&year ShrHisp_&year 
+	ShrAsn_&year ShrOth_&year 
+	ShrEmpMngmt_&year ShrEmpNatRes_&year ShrEmpProd_&year ShrEmpSales_&year ShrEmpServ_&year
+	ShrEmpAgric_&year ShrEmpConstr_&year ShrEmpManuf_&year ShrEmpWhlsale_&year 
+	ShrEmpRetail_&year ShrEmpTransprt_&year ShrEmpInfo_&year ShrEmpFinance_&year
+	ShrEmpProfServ_&year ShrEmpEduction_&year ShrEmpArts_&year ShrEmpOther_&year
+	ShrEmpPubAdmin_&year 
+	ShrHomeownership_&year ShrRenterCostBurden_&year ShrRentSevereCostBurden_&year 
+	ShrOwnerCostBurden_&year ShrOwnSevereCostBurden_&year
+	ShrRentCstBurden_15_24_&year ShrRentCstBurden_25_34_&year 
+	ShrRentCstBurden_35_64_&year ShrRentCstBurden_65Over_&year 
+	ShrOwnCstBurden_15_24_&year ShrOwnCstBurden_25_34_&year 
+	ShrOwnCstBurden_35_64_&year ShrOwnCstBurden_65Over_&year 
+	ShrRentCstBurden_LT10K_&year ShrRentCstBurden_10_19K_&year 
+	ShrRentCstBurden_20_34K_&year ShrRentCstBurden_35_49K_&year 
+	ShrRentCstBurden_50_74K_&year ShrRentCstBurden_75_99_&year 
+	ShrRentCstBurden_GT100K_&year 
+	ShrOwnCstBurden_LT10K_&year ShrOwnCstBurden_10_19K_&year 
+	ShrOwnCstBurden_20_34K_&year ShrOwnCstBurden_35_49K_&year 
+	ShrOwnCstBurden_50_74K_&year ShrOwnCstBurden_75_99_&year 
+	ShrOwnCstBurden_100_149_&year ShrOwnCstBurden_GT150K_&year 
+	ShrEmployedWorkInState_&year ShrEmployedWorkOutState_&year
+	ShrEmployedTravel_&year ShrEmployedTravel_LT5_&year
+	ShrEmployedTravel_5_9_&year ShrEmployedTravel_10_14_&year
+	ShrEmployedTravel_15_19_&year ShrEmployedTravel_20_24_&year 
+	ShrEmployedTravel_25_29_&year ShrEmployedTravel_30_34_&year 
+	ShrEmployedTravel_35_39_&year ShrEmployedTravel_40_44_&year 
+	ShrEmployedTravel_45_59_&year ShrEmployedTravel_60_89_&year 
+	ShrEmployedTravel_GT90_&year
+	);
+
+	set ACS.acs_2011_15_dc_sum_tr_city
+	(keep= popincivlaborforce_&year
+	pop16andoveryears_&year popcivilianemployed_&year popunemployed_&year 
+	poppoorpersons_&year personspovertydefined_&year popwithrace_&year 
+	popwhitenonhispbridge_&year popblacknonhispbridge_&year pophisp_&year 
+	popasianpinonhispbridge_&year popotherracenonhispbridg_&year 
+	pop25andoveryears_&year pop25andoverwhs_&year pop25andoverwcollege_&year 
+	popemployedmngmt_&year popemployednatres_&year popemployedprod_&year 
+	popemployedsales_&year popemployedserv_&year popemployedbyocc_&year
+	numrenteroccupiedhu_&year numowneroccupiedhu_&year numoccupiedhsgunits_&year
+	RentCostBurdenDenom_&year OwnerCostBurdenDenom_&year 
+	NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+	NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
+	NumRentCstBurden_15_24_&year NumRentCstBurden_25_34_&year 
+	NumRentCstBurden_35_64_&year NumRentCstBurden_65Over_&year 
+	NumOwnCstBurden_15_24_&year NumOwnCstBurden_25_34_&year 
+	NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
+	NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
+	NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
+	NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
+	NumRentCstBurden_GT100K_&year 
+	NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
+	NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
+	NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
+	NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
+	PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
+	PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
+	PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
+	PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
+	PopEmployedOther_&year PopEmployedPubAdmin_&year
+	PopEmployedByOcc_&year PopEmployedMngmt_&year
+	PopEmployedServ_&year PopEmployedSales_&year
+	PopEmployedNatRes_&year PopEmployedProd_&year 
+	PopEmployedWorkers_&year PopEmployedWorkInState_&year PopEmployedWorkOutState_&year
+	PopEmployedTravel_&year PopEmployedTravel_LT5_&year
+	PopEmployedTravel_5_9_&year PopEmployedTravel_10_14_&year
+	PopEmployedTravel_15_19_&year PopEmployedTravel_20_24_&year 
+	PopEmployedTravel_25_29_&year PopEmployedTravel_30_34_&year 
+	PopEmployedTravel_35_39_&year PopEmployedTravel_40_44_&year 
+	PopEmployedTravel_45_59_&year PopEmployedTravel_60_89_&year 
+	PopEmployedTravel_GT90_&year city );
+
+	/*Labor force, employment, and poverty*/
+		ShrLaborForce_&year = popincivlaborforce_&year / pop16andoveryears_&year;
+		ShrEmpRate_&year = popcivilianemployed_&year / popincivlaborforce_&year;
+		ShrUnEmpRate_&year = popunemployed_&year / popincivlaborforce_&year;
+		ShrPov_&year = poppoorpersons_&year / personspovertydefined_&year;
+
+	/*Employment by major occupations*/
+		ShrEmpMngmt_&year = popemployedmngmt_&year / popemployedbyocc_2011_15;
+		ShrEmpNatRes_&year = popemployednatres_&year / popemployedbyocc_2011_15;
+		ShrEmpProd_&year = popemployedprod_&year / popemployedbyocc_2011_15;
+		ShrEmpSales_&year = popemployedsales_&year / popemployedbyocc_2011_15;
+		ShrEmpServ_&year = popemployedserv_&year / popemployedbyocc_2011_15;
+
+	/*Employment by major industries*/
+		ShrEmpAgric_&year = PopEmployedAgric_&year / popemployedbyind_&year;
+		ShrEmpConstr_&year = PopEmployedConstr_&year / popemployedbyind_&year;
+		ShrEmpManuf_&year = PopEmployedManuf_&year / popemployedbyind_&year;
+		ShrEmpWhlsale_&year = PopEmployedWhlsale_&year / popemployedbyind_&year;
+		ShrEmpRetail_&year = PopEmployedRetail_&year / popemployedbyind_&year;
+		ShrEmpTransprt_&year = PopEmployedTransprt_&year / popemployedbyind_&year;
+		ShrEmpInfo_&year = PopEmployedInfo_&year / popemployedbyind_&year;
+		ShrEmpFinance_&year = PopEmployedFinance_&year / popemployedbyind_&year;
+		ShrEmpProfServ_&year = PopEmployedProfServ_&year / popemployedbyind_&year;
+		ShrEmpEduction_&year = PopEmployedEduction_&year / popemployedbyind_&year;
+		ShrEmpArts_&year = PopEmployedArts_&year / popemployedbyind_&year;
+		ShrEmpOther_&year = PopEmployedOther_&year / popemployedbyind_&year;
+		ShrEmpPubAdmin_&year = PopEmployedPubAdmin_&year / popemployedbyind_&year;
+
+	/*Employment by place of work*/
+
+		ShrEmployedWorkInState_&year = PopEmployedWorkInState_&year / PopEmployedWorkers_&year;
+		ShrEmployedWorkOutState_&year = PopEmployedWorkOutState_&year / PopEmployedWorkers_&year;
+
+	/*Employment by travel time to work*/
+
+		ShrEmployedTravel_LT5_&year = PopEmployedTravel_LT5_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_5_9_&year = PopEmployedTravel_5_9_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_10_14_&year = PopEmployedTravel_10_14_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_15_19_&year = PopEmployedTravel_15_19_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_20_24_&year = PopEmployedTravel_20_24_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_25_29_&year = PopEmployedTravel_25_29_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_30_34_&year = PopEmployedTravel_30_34_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_35_39_&year = PopEmployedTravel_35_39_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_40_44_&year = PopEmployedTravel_40_44_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_45_59_&year = PopEmployedTravel_45_59_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_60_89_&year = PopEmployedTravel_60_89_&year / PopEmployedTravel_&year;
+		ShrEmployedTravel_GT90_&year = PopEmployedTravel_GT90_&year / PopEmployedTravel_&year;
+
+	/*Homeownership, rent, and cost burden by age of householder and household income*/
+		ShrHomeownership_&year = numowneroccupiedhu_&year / numoccupiedhsgunits_&year;
+		ShrRenterCostBurden_&year = NumRenterCostBurden_&year/RentCostBurdenDenom_&year;
+		ShrRentSevereCostBurden_&year = NumRentSevereCostBurden_&year/RentCostBurdenDenom_&year;
+		ShrOwnerCostBurden_&year = NumOwnerCostBurden_&year/OwnerCostBurdenDenom_&year;
+		ShrOwnSevereCostBurden_&year = NumOwnSevereCostBurden_&year/OwnerCostBurdenDenom_&year;
+
+		ShrRentCstBurden_15_24_&year = NumRentCstBurden_15_24_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_25_34_&year = NumRentCstBurden_25_34_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_35_64_&year = NumRentCstBurden_35_64_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_65Over_&year = NumRentCstBurden_65Over_&year / RentCostBurdenDenom_&year;
+
+		ShrOwnCstBurden_15_24_&year = NumOwnCstBurden_15_24_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_25_34_&year = NumOwnCstBurden_25_34_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_35_64_&year = NumOwnCstBurden_35_64_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_65Over_&year = NumOwnCstBurden_65Over_&year / OwnerCostBurdenDenom_&year;
+
+		ShrRentCstBurden_LT10K_&year = NumRentCstBurden_LT10K_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_10_19K_&year = NumRentCstBurden_10_19K_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_20_35K_&year = NumRentCstBurden_20_35K_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_35_50K_&year = NumRentCstBurden_35_50K_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_50_75K_&year = NumRentCstBurden_50_75K_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_75_100_&year = NumRentCstBurden_75_100_&year / RentCostBurdenDenom_&year;
+		ShrRentCstBurden_GT100K_&year = NumRentCstBurden_GT100K_&year / RentCostBurdenDenom_&year;
+
+		ShrOwnCstBurden_LT10K_&year = NumOwnCstBurden_LT10K_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_10_19K_&year = NumOwnCstBurden_10_19K_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_20_35K_&year = NumOwnCstBurden_20_35K_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_35_50K_&year = NumOwnCstBurden_35_50K_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_50_75K_&year = NumOwnCstBurden_50_75K_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_75_100_&year = NumOwnCstBurden_75_100_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_100_149_&year = NumOwnCstBurden_100_149_&year / OwnerCostBurdenDenom_&year;
+		ShrOwnCstBurden_GT150K_&year = NumOwnCstBurden_GT150K_&year / OwnerCostBurdenDenom_&year;
+
+	/*Education*/
+		ShrHS_&year = pop25andoverwhs_&year / pop25andoveryears_&year;
+		ShrCol_&year = pop25andoverwcollege_&year / pop25andoveryears_&year;
+
+	/*Race and ethnicity*/
+		ShrWht_&year = popwhitenonhispbridge_&year / popwithrace_&year;
+		ShrBlk_&year = popblacknonhispbridge_&year / popwithrace_&year;
+		ShrHisp_&year = pophisp_&year / popwithrace_&year;
+		ShrAsn_&year = popasianpinonhispbridge_&year / popwithrace_&year;
+		ShrOth_&year = popotherracenonhispbridg_&year / popwithrace_&year;
+
+run;
+
+proc export data = ACS_city outfile = "L:\Libraries\Bridgepk\Data\ACS_city_pct.csv" dbms = csv replace;
+run;
+
+data ACS_city_n 
+	(keep= city pop16andoveryears_&year popincivlaborforce_&year
+			personspovertydefined_&year pop25andoveryears_&year popwithrace_&year
+			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
+			NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+			NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
+			GrossRentLT100_499_&year GrossRent500_799_&year GrossRent800_899_&year 
+			GrossRent900_999_&year GrossRent1000_1249_&year GrossRent1250_1499_&year 
+			GrossRent1500_1999_&year GrossRent2000_2499_&year GrossRent2500_2999_&year 
+			GrossRent3000_3499_&year GrossRentGT3500_&year 
+			PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
+			PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
+			PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
+			PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
+			PopEmployedOther_&year PopEmployedPubAdmin_&year
+			PopEmployedByOcc_&year PopEmployedMngmt_&year
+			PopEmployedServ_&year PopEmployedSales_&year
+			PopEmployedNatRes_&year PopEmployedProd_&year
+			NumRentCstBurden_15_24_&year NumRentCstBurden_25_34_&year 
+			NumRentCstBurden_35_64_&year NumRentCstBurden_65Over_&year 
+			NumOwnCstBurden_15_24_&year NumOwnCstBurden_25_34_&year 
+			NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
+			NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
+			NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
+			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
+			NumRentCstBurden_GT100K_&year 
+			NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
+			NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
+			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
+			NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
+			PopEmployedWorkers_&year PopEmployedWorkInState_&year PopEmployedWorkOutState_&year
+			PopEmployedTravel_&year PopEmployedTravel_LT5_&year
+			PopEmployedTravel_5_9_&year PopEmployedTravel_10_14_&year
+			PopEmployedTravel_15_19_&year PopEmployedTravel_20_24_&year 
+			PopEmployedTravel_25_29_&year PopEmployedTravel_30_34_&year 
+			PopEmployedTravel_35_39_&year PopEmployedTravel_40_44_&year 
+			PopEmployedTravel_45_59_&year PopEmployedTravel_60_89_&year 
+			PopEmployedTravel_GT90_&year
+			);
+	set ACS.acs_2011_15_dc_sum_tr_city
+	(keep= pop16andoveryears_&year 
+			popincivlaborforce_&year personspovertydefined_&year 
+			pop25andoveryears_&year popwithrace_&year 
+			numrenteroccupiedhu_&year numowneroccupiedhu_&year 
+			GrossRentLT100_499_&year GrossRent500_799_&year GrossRent800_899_&year 
+			GrossRent900_999_&year GrossRent1000_1249_&year GrossRent1250_1499_&year 
+			GrossRent1500_1999_&year GrossRent2000_2499_&year GrossRent2500_2999_&year 
+			GrossRent3000_3499_&year GrossRentGT3500_&year
+			NumRenterCostBurden_&year NumRentSevereCostBurden_&year 
+			NumOwnerCostBurden_&year NumOwnSevereCostBurden_&year
+			PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
+			PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
+			PopEmployedTransprt_&year PopEmployedInfo_&year PopEmployedFinance_&year 
+			PopEmployedProfServ_&year PopEmployedEduction_&year PopEmployedArts_&year 
+			PopEmployedOther_&year PopEmployedPubAdmin_&year
+			PopEmployedByOcc_&year PopEmployedMngmt_&year
+			PopEmployedServ_&year PopEmployedSales_&year
+			PopEmployedNatRes_&year PopEmployedProd_&year
+			NumRentCstBurden_15_24_&year NumRentCstBurden_25_34_&year 
+			NumRentCstBurden_35_64_&year NumRentCstBurden_65Over_&year 
+			NumOwnCstBurden_15_24_&year NumOwnCstBurden_25_34_&year 
+			NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
+			NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
+			NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
+			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
+			NumRentCstBurden_GT100K_&year 
+			NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
+			NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
+			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
+			NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
+			PopEmployedWorkers_&year PopEmployedWorkInState_&year PopEmployedWorkOutState_&year
+			PopEmployedTravel_&year PopEmployedTravel_LT5_&year
+			PopEmployedTravel_5_9_&year PopEmployedTravel_10_14_&year
+			PopEmployedTravel_15_19_&year PopEmployedTravel_20_24_&year 
+			PopEmployedTravel_25_29_&year PopEmployedTravel_30_34_&year 
+			PopEmployedTravel_35_39_&year PopEmployedTravel_40_44_&year 
+			PopEmployedTravel_45_59_&year PopEmployedTravel_60_89_&year 
+			PopEmployedTravel_GT90_&year
+			city);
+
+run;
+
+proc export data = ACS_city_n outfile = "L:\Libraries\Bridgepk\Data\ACS_city_n.csv" dbms = csv replace;
+run;
+
+
+
 
 ** Pull ACS Estimates for wards **;
 
@@ -347,11 +881,11 @@ data ACS_ward
 	NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
 	NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
 	NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
-	NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99_&year 
+	NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
 	NumRentCstBurden_GT100K_&year 
 	NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
 	NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
-	NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99_&year 
+	NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
 	NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
 	PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
 	PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
@@ -493,11 +1027,11 @@ data ACS_ward_n
 			NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
 			NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
 			NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
-			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99_&year 
+			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
 			NumRentCstBurden_GT100K_&year 
 			NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
 			NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
-			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99_&year 
+			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
 			NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
 			PopEmployedWorkers_&year PopEmployedWorkInState_&year PopEmployedWorkOutState_&year
 			PopEmployedTravel_&year PopEmployedTravel_LT5_&year
@@ -532,11 +1066,11 @@ data ACS_ward_n
 			NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
 			NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
 			NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
-			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99_&year 
+			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
 			NumRentCstBurden_GT100K_&year 
 			NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
 			NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
-			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99_&year 
+			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
 			NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
 			PopEmployedWorkers_&year PopEmployedWorkInState_&year PopEmployedWorkOutState_&year
 			PopEmployedTravel_&year PopEmployedTravel_LT5_&year
@@ -614,11 +1148,11 @@ data ACS_bpk
 	NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
 	NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
 	NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
-	NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99_&year 
+	NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
 	NumRentCstBurden_GT100K_&year 
 	NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
 	NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
-	NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99_&year 
+	NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
 	NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
 	PopEmployedByInd_&year PopEmployedAgric_&year PopEmployedConstr_&year 
 	PopEmployedManuf_&year PopEmployedWhlsale_&year PopEmployedRetail_&year 
@@ -759,11 +1293,11 @@ data ACS_bpk_n
 			NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
 			NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
 			NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
-			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99_&year 
+			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
 			NumRentCstBurden_GT100K_&year 
 			NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
 			NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
-			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99_&year 
+			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
 			NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
 			PopEmployedWorkers_&year PopEmployedWorkInState_&year PopEmployedWorkOutState_&year
 			PopEmployedTravel_&year PopEmployedTravel_LT5_&year
@@ -798,11 +1332,11 @@ data ACS_bpk_n
 			NumOwnCstBurden_35_64_&year NumOwnCstBurden_65Over_&year 
 			NumRentCstBurden_LT10K_&year NumRentCstBurden_10_19K_&year 
 			NumRentCstBurden_20_34K_&year NumRentCstBurden_35_49K_&year 
-			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99_&year 
+			NumRentCstBurden_50_74K_&year NumRentCstBurden_75_99K_&year 
 			NumRentCstBurden_GT100K_&year 
 			NumOwnCstBurden_LT10K_&year NumOwnCstBurden_10_19K_&year 
 			NumOwnCstBurden_20_34K_&year NumOwnCstBurden_35_49K_&year 
-			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99_&year 
+			NumOwnCstBurden_50_74K_&year NumOwnCstBurden_75_99K_&year 
 			NumOwnCstBurden_100_149_&year NumOwnCstBurden_GT150K_&year 
 			PopEmployedWorkers_&year PopEmployedWorkInState_&year PopEmployedWorkOutState_&year
 			PopEmployedTravel_&year PopEmployedTravel_LT5_&year
