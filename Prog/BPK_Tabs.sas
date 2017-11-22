@@ -385,7 +385,6 @@ proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge 
 			PctOwnCstBurden_75_99K_&_years. 
 			PctOwnCstBurden_100_149_&_years. 
 			PctOwnCstBurden_GT150K_&_years. 
-			PctOwnCstBurden_GT150K_&_years. 
 
 			units_sf_2000 units_sf_2001 units_sf_2002 
 			units_sf_2003 units_sf_2004 units_sf_2005 units_sf_2006 units_sf_2007 
