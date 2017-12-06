@@ -53,7 +53,7 @@ data bridgepk.compile_bpk_tabs_&geosuf;
 			(keep= &geo 
 				popwhitenonhispbridge_&_years. popblacknonhispbridge_&_years. pophisp_&_years. 
 				popasianpinonhispbridge_&_years. popotherracenonhispbridg_&_years. 
-				pop25andoveryears_&_years. pop25andoverwhs_&_years. pop25andoverwcollege_&_years. 
+				pop25andoveryears_&_years. pop25andoverwhs_&_years. Pop25andOverWoutHS_&_years. pop25andoverwcollege_&_years. 
 				PopEmployedByInd_&_years. PopEmployedAgric_&_years. PopEmployedConstr_&_years. 
 				PopEmployedManuf_&_years. PopEmployedWhlsale_&_years. PopEmployedRetail_&_years. 
 				PopEmployedTransprt_&_years. PopEmployedInfo_&_years. PopEmployedFinance_&_years. 
@@ -233,6 +233,7 @@ data bridgepk.compile_bpk_tabs_&geosuf;
 		/*Education*/
 			PctHS_&_years. = pop25andoverwhs_&_years. / pop25andoveryears_&_years.;
 			PctCol_&_years. = pop25andoverwcollege_&_years. / pop25andoveryears_&_years.;
+			PctWoutHS_&_years. = Pop25andOverWoutHS / pop25andoveryears_&_years.;
 
 		/*Race and ethnicity*/
 			PctWht_&_years. = popwhitenonhispbridge_&_years. / popwithrace_&_years.;
@@ -354,7 +355,7 @@ proc transpose data=bridgepk.compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geo
 			Pop25andoveryears_&_years.
 			PctHS_&_years. 
 			PctCol_&_years. 
-			PctCol_&_years. 
+			PctWoutHS_&_years.
 
 		/*Labor force and employment*/
 			PctLaborForce_&_years.
