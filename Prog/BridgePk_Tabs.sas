@@ -29,7 +29,7 @@
 
 %macro Compile_bpk_data (geo, geosuf);
 
-data compile_bpk_tabs_&geosuf;
+data bridgepk.compile_bpk_tabs_&geosuf;
 	merge 
 		ACS.acs_2011_15_dc_sum_tr_&geosuf
 			(keep= &geo
@@ -274,7 +274,7 @@ data compile_bpk_tabs_&geosuf;
 
 	run;
 
-proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge Park Tabulations, &geo");
+proc transpose data=compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geosuf(label="Bridge Park Tabulations, &geo");
 	var 	&geo 	
 			totpop_1990 totpop_2000 totpop_2010
 			numoccupiedhsgunits_1990 numoccupiedhsgunits_2000 numoccupiedhsgunits_2010 
