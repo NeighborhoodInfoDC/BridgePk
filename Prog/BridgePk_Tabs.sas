@@ -74,7 +74,14 @@ data bridgepk.compile_bpk_tabs_&geosuf;
 				NumRentCstBurden_LT10K_&_years. NumRentCstBurden_10_19K_&_years. 
 				NumRentCstBurden_20_34K_&_years. NumRentCstBurden_35_49K_&_years. 
 				NumRentCstBurden_50_74K_&_years. NumRentCstBurden_75_99K_&_years. 
-				NumRentCstBurden_GT100K_&_years. )
+				NumRentCstBurden_GT100K_&_years.
+				GrossRentLT100_499_&_years. GrossRent500_799_&_years.
+				GrossRent800_899_&_years. GrossRent900_999_&_years.
+				GrossRent1000_1249_&_years. GrossRent1250_1499_&_years.
+				GrossRent1500_1999_&_years. GrossRent2000_2499_&_years.
+				GrossRent2500_2999_&_years. GrossRent3000_3499_&_years.
+				GrossRentGT3500_&_years. )
+
 
 		RealProp.num_units_&geosuf 
 			(keep= &geo units_sf_2000 units_sf_2001 units_sf_2002 
@@ -274,13 +281,82 @@ data bridgepk.compile_bpk_tabs_&geosuf;
 
 	run;
 
-proc transpose data=compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geosuf(label="Bridge Park Tabulations, &geo");
+proc transpose data=bridgepk.compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geosuf(label="Bridge Park Tabulations, &geo");
 	var 	&geo 	
+
+		/*Population*/
 			totpop_1990 totpop_2000 totpop_2010
 			numoccupiedhsgunits_1990 numoccupiedhsgunits_2000 numoccupiedhsgunits_2010 
-			
-			
-		/*Labor force, employment, and poverty*/
+		
+		/*Race and ethnicity*/
+			popwithrace_&_years. 
+			PctWht_&_years. 
+			PctBlk_&_years. 
+			PctHisp_&_years.
+			PctAsn_&_years.
+			PctOth_&_years. 
+	
+		/*Homeownership, rent, and cost burden*/
+			NumOwnerOccupiedHU_&_years.
+			NumRenterOccupiedHU_&_years. 
+			PctHomeownership_&_years. 
+
+			GrossRentLT100_499_&_years. GrossRent500_799_&_years.
+			GrossRent800_899_&_years. GrossRent900_999_&_years.
+			GrossRent1000_1249_&_years. GrossRent1250_1499_&_years.
+			GrossRent1500_1999_&_years. GrossRent2000_2499_&_years.
+			GrossRent2500_2999_&_years. GrossRent3000_3499_&_years.
+			GrossRentGT3500_&_years. 
+
+			NumRenterCostBurden_&_years. 
+			NumRentSevereCostBurden_&_years. 
+			PctRenterCostBurden_&_years. 
+			PctRentSevereCostBurden_&_years.
+
+			NumOwnerCostBurden_&_years. 
+			NumOwnSevereCostBurden_&_years. 
+			PctOwnerCostBurden_&_years. 
+			PctOwnSevereCostBurden_&_years. 
+
+			PctRentCstBurden_15_24_&_years. 
+			PctRentCstBurden_25_34_&_years. 
+			PctRentCstBurden_35_64_&_years. 
+			PctRentCstBurden_65Over_&_years. 
+
+			PctOwnCstBurden_15_24_&_years. 
+			PctOwnCstBurden_25_34_&_years. 
+			PctOwnCstBurden_35_64_&_years. 
+			PctOwnCstBurden_65Over_&_years. 
+
+			PctRentCstBurden_LT10K_&_years. 
+			PctRentCstBurden_10_19K_&_years. 
+			PctRentCstBurden_20_34K_&_years. 
+			PctRentCstBurden_35_49K_&_years. 
+			PctRentCstBurden_50_74K_&_years. 
+			PctRentCstBurden_75_99K_&_years. 
+			PctRentCstBurden_GT100K_&_years. 
+
+			PctOwnCstBurden_LT10K_&_years. 
+			PctOwnCstBurden_10_19K_&_years. 
+			PctOwnCstBurden_20_34K_&_years. 
+			PctOwnCstBurden_35_49K_&_years. 
+			PctOwnCstBurden_50_74K_&_years. 
+			PctOwnCstBurden_75_99K_&_years. 
+			PctOwnCstBurden_100_149_&_years. 
+			PctOwnCstBurden_GT150K_&_years. 
+
+		/*Poverty*/		
+			PctPoorPersons_&_years.
+			poppoorpersons_&_years. 
+			personspovertydefined_&_years. 
+
+		/*Education*/
+			pop25andoveryears_&_years.
+			PctHS_&_years. 
+			PctCol_&_years. 
+			PctCol_&_years. 
+
+		/*Labor force and employment*/
 			PctLaborForce_&_years.
 			PctPopEmployed_&_years. 
 			PctPopUnemployed_&_years. 
@@ -330,61 +406,13 @@ proc transpose data=compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geosuf(label
 			PctEmployedTravel_60_89_&_years. 
 			PctEmployedTravel_GT90_&_years. 
 			
-		/*Poverty*/		
-			PctPoorPersons_&_years.
-			poppoorpersons_&_years. 
-			personspovertydefined_&_years. 
 
-		/*Education*/
-			pop25andoveryears_&_years.
-			PctHS_&_years. 
-			PctCol_&_years. 
-			PctCol_&_years. 
 
 			
-		/*Race and ethnicity*/
-			popwithrace_&_years. 
-			PctWht_&_years. 
-			PctBlk_&_years. 
-			PctHisp_&_years.
-			PctAsn_&_years.
-			PctOth_&_years. 
+
 			
 
-		/*Homeownership, rent, and cost burden*/
-
-			PctHomeownership_&_years. 
-			PctRenterCostBurden_&_years. 
-			PctRentSevereCostBurden_&_years. 
-			PctOwnerCostBurden_&_years. 
-			PctOwnSevereCostBurden_&_years. 
-
-			PctRentCstBurden_15_24_&_years. 
-			PctRentCstBurden_25_34_&_years. 
-			PctRentCstBurden_35_64_&_years. 
-			PctRentCstBurden_65Over_&_years. 
-
-			PctOwnCstBurden_15_24_&_years. 
-			PctOwnCstBurden_25_34_&_years. 
-			PctOwnCstBurden_35_64_&_years. 
-			PctOwnCstBurden_65Over_&_years. 
-
-			PctRentCstBurden_LT10K_&_years. 
-			PctRentCstBurden_10_19K_&_years. 
-			PctRentCstBurden_20_34K_&_years. 
-			PctRentCstBurden_35_49K_&_years. 
-			PctRentCstBurden_50_74K_&_years. 
-			PctRentCstBurden_75_99K_&_years. 
-			PctRentCstBurden_GT100K_&_years. 
-
-			PctOwnCstBurden_LT10K_&_years. 
-			PctOwnCstBurden_10_19K_&_years. 
-			PctOwnCstBurden_20_34K_&_years. 
-			PctOwnCstBurden_35_49K_&_years. 
-			PctOwnCstBurden_50_74K_&_years. 
-			PctOwnCstBurden_75_99K_&_years. 
-			PctOwnCstBurden_100_149_&_years. 
-			PctOwnCstBurden_GT150K_&_years. 
+		
 
 			units_sf_2000 units_sf_2001 units_sf_2002 
 			units_sf_2003 units_sf_2004 units_sf_2005 units_sf_2006 units_sf_2007 
@@ -441,7 +469,7 @@ proc transpose data=compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geosuf(label
 id &geo; 
 run; 
 
-proc export data=bpk_tabs_&geosuf
+proc export data=bridgepk.bpk_tabs_&geosuf
 	outfile="L:\Libraries\BridgePk\Data\bpktabs_&geosuf..csv"
 	dbms=csv replace;
 	run;
@@ -453,4 +481,3 @@ proc export data=bpk_tabs_&geosuf
 %Compile_bpk_data (bridgepk, bpk);
 %Compile_bpk_data (ward2012, wd12);
 %Compile_bpk_data (city, city);
-
