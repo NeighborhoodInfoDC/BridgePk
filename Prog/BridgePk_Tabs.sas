@@ -351,7 +351,7 @@ proc transpose data=bridgepk.compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geo
 			personspovertydefined_&_years. 
 
 		/*Education*/
-			pop25andoveryears_&_years.
+			Pop25andoveryears_&_years.
 			PctHS_&_years. 
 			PctCol_&_years. 
 			PctCol_&_years. 
@@ -366,33 +366,35 @@ proc transpose data=bridgepk.compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geo
 			popunemployed_&_years. 
 			
 		/*Employment by major occupations*/
-			PctEmpMngmt_&_years. 
-			PctEmpNatRes_&_years. 
-			PctEmpProd_&_years. 
-			PctEmpSales_&_years. 
-			PctEmpServ_&_years. 
+			PopEmployedByOcc_&_years. 
+			PopEmployedMngmt_&_years.
+			PopEmployedServ_&_years. 
+			PopEmployedSales_&_years.
+			PopEmployedNatRes_&_years. 
+			PopEmployedProd_&_years. 
+
 
 		/*Employment by major industries*/
-			PctEmpAgric_&_years. 
-			PctEmpConstr_&_years. 
-			PctEmpManuf_&_years. 
-			PctEmpWhlsale_&_years. 
-			PctEmpRetail_&_years. 
-			PctEmpTransprt_&_years. 
-			PctEmpInfo_&_years. 
-			PctEmpFinance_&_years. 
-			PctEmpProfServ_&_years. 
-			PctEmpEduction_&_years. 
-			PctEmpArts_&_years. 
-			PctEmpOther_&_years. 
-			PctEmpPubAdmin_&_years. 
+			PopEmployedByInd_&_years. 
+			PopEmployedAgric_&_years. 
+			PopEmployedConstr_&_years. 
+			PopEmployedManuf_&_years. 
+			PopEmployedWhlsale_&_years. 
+			PopEmployedRetail_&_years. 
+			PopEmployedTransprt_&_years. 
+			PopEmployedInfo_&_years. 
+			PopEmployedFinance_&_years. 
+			PopEmployedProfServ_&_years. 
+			PopEmployedEduction_&_years. 
+			PopEmployedArts_&_years. 
+			PopEmployedOther_&_years. 
+			PopEmployedPubAdmin_&_years.
 
 		/*Employment by workplace location*/
 			PctEmployedWorkInState_&_years. 
 			PctEmployedWorkOutState_&_years. 
 
 		/*Employment by travel time to work*/
-
 			PctEmployedTravel_LT5_&_years. 
 			PctEmployedTravel_5_9_&_years. 
 			PctEmployedTravel_10_14_&_years. 
@@ -406,14 +408,7 @@ proc transpose data=bridgepk.compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geo
 			PctEmployedTravel_60_89_&_years. 
 			PctEmployedTravel_GT90_&_years. 
 			
-
-
-			
-
-			
-
-		
-
+		/*Residential property: total units, total sales, and median sales price: 2000 - 2016*/
 			units_sf_2000 units_sf_2001 units_sf_2002 
 			units_sf_2003 units_sf_2004 units_sf_2005 units_sf_2006 units_sf_2007 
 			units_sf_2008 units_sf_2009 units_sf_2010 units_sf_2011 units_sf_2012 
@@ -448,6 +443,8 @@ proc transpose data=bridgepk.compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geo
 			r_mprice_condo_2009 r_mprice_condo_2010 r_mprice_condo_2011 r_mprice_condo_2012
 			r_mprice_condo_2013 r_mprice_condo_2014 r_mprice_condo_2015 r_mprice_condo_2016
 
+
+		/*Violent and property crime rates: 2000 - 2016*/
 			property_crime_rate_2001 property_crime_rate_2002 
 			property_crime_rate_2003 property_crime_rate_2004
 			property_crime_rate_2005 property_crime_rate_2006
