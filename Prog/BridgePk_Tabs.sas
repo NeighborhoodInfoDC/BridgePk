@@ -446,6 +446,7 @@ proc transpose data=bridgepk.compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geo
 
 
 		/*Violent and property crime rates: 2000 - 2016*/
+			property_crime_rate_2000
 			property_crime_rate_2001 property_crime_rate_2002 
 			property_crime_rate_2003 property_crime_rate_2004
 			property_crime_rate_2005 property_crime_rate_2006
@@ -455,6 +456,7 @@ proc transpose data=bridgepk.compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geo
 			property_crime_rate_2013 property_crime_rate_2014
 			property_crime_rate_2015 property_crime_rate_2016 
 			
+			violent_crime_rate_2000
 			violent_crime_rate_2001 violent_crime_rate_2002 
 			violent_crime_rate_2003 violent_crime_rate_2004
 			violent_crime_rate_2005 violent_crime_rate_2006
