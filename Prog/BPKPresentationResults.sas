@@ -469,7 +469,7 @@ id &geo;
 run; 
 
 proc export data=bridgepk.bpk_tabs_&geosuf
-	outfile="L:\Libraries\BridgePk\Data\bpktabs_&geosuf..csv"
+	outfile="&_dcdata_default_path\BridgePk\Data\bpktabs_&geosuf..csv"
 	dbms=csv replace;
 	run;
 
