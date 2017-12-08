@@ -28,7 +28,7 @@
 
 %macro Compile_bpk_data (geo, geosuf);
 
-data bridgepk.compile_bpk_tabs_&geosuf;
+data compile_bpk_tabs_&geosuf;
 	merge 
 		ACS.acs_2011_15_dc_sum_tr_&geosuf
 			(keep= &geo
@@ -232,7 +232,7 @@ data bridgepk.compile_bpk_tabs_&geosuf;
 		/*Education*/
 			PctHS_&_years. = pop25andoverwhs_&_years. / pop25andoveryears_&_years.;
 			PctCol_&_years. = pop25andoverwcollege_&_years. / pop25andoveryears_&_years.;
-			PctWoutHS_&_years. = Pop25andOverWoutHS / pop25andoveryears_&_years.;
+			PctWoutHS_&_years. = Pop25andOverWoutHS_&_years. / pop25andoveryears_&_years.;
 
 		/*Race and ethnicity*/
 			PctWht_&_years. = popwhitenonhispbridge_&_years. / popwithrace_&_years.;
@@ -468,7 +468,9 @@ proc transpose data=bridgepk.compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geo
 id &geo; 
 run; 
 
-proc export data=bridgepk.bpk_tabs_&geosuf
+%File_info( data=compile_bpk_tabs_&geosuf, contents=n, printobs=0 )
+
+proc export data=compile_bpk_tabs_&geosuf
 	outfile="&_dcdata_default_path\BridgePk\Data\bpktabs_&geosuf..csv"
 	dbms=csv replace;
 	run;
