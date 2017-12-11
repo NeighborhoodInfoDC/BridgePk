@@ -281,7 +281,7 @@ data compile_bpk_tabs_&geosuf;
 
 	run;
 
-proc transpose data=bridgepk.compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geosuf(label="Bridge Park Tabulations, &geo");
+proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge Park Tabulations, &geo");
 	var 	&geo 	
 
 		/*Population*/
@@ -468,9 +468,9 @@ proc transpose data=bridgepk.compile_bpk_tabs_&geosuf out=bridgepk.bpk_tabs_&geo
 id &geo; 
 run; 
 
-%File_info( data=compile_bpk_tabs_&geosuf, contents=n, printobs=0 )
+%File_info( data=bpk_tabs_&geosuf, contents=n, printobs=0 )
 
-proc export data=compile_bpk_tabs_&geosuf
+proc export data=bpk_tabs_&geosuf
 	outfile="&_dcdata_default_path\BridgePk\Data\bpktabs_&geosuf..csv"
 	dbms=csv replace;
 	run;
