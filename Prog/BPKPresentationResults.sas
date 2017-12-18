@@ -42,6 +42,10 @@ data compile_bpk_tabs_&geosuf;
 				PopEmployedTravel_35_39_&_years. PopEmployedTravel_40_44_&_years. 
 				PopEmployedTravel_45_59_&_years. PopEmployedTravel_60_89_&_years. 
 				PopEmployedTravel_GT90_&_years.
+				IncmByOwnerCst_LT10K_&_years. IncmByOwnerCst_10_19K_&_years.
+				IncmByOwnerCst_20_34K_&_years. IncmByOwnerCst_35_49K_&_years.
+				IncmByOwnerCst_50_74K_&_years. IncmByOwnerCst_75_99K_&_years.
+				IncmByOwnerCst_100_149_&_years. IncmByOwnerCst_150K_&_years.
 				NumOwnCstBurden_LT10K_&_years. NumOwnCstBurden_10_19K_&_years. 
 				NumOwnCstBurden_20_34K_&_years. NumOwnCstBurden_35_49K_&_years. 
 				NumOwnCstBurden_50_74K_&_years. NumOwnCstBurden_75_99K_&_years. 
@@ -63,6 +67,26 @@ data compile_bpk_tabs_&geosuf;
 				PopEmployedNatRes_&_years. PopEmployedProd_&_years. 
 				PopEmployedWorkers_&_years. PopEmployedWorkInState_&_years. PopEmployedWorkOutState_&_years.
 				NumRenterOccupiedHU_&_years. NumOwnerOccupiedHU_&_years. NumOccupiedHsgUnits_&_years.
+				GrossRentLT100_&_years. GrossRent100_149_&_years. GrossRent150_199_&_years.  
+				GrossRent200_249_&_years. GrossRent250_299_&_years. 
+				GrossRent300_349_&_years. GrossRent350_349_&_years. 
+				GrossRent400_449_&_years. GrossRent450_499_&_years. 
+				GrossRent500_549_&_years. GrossRent550_599_&_years. 
+				GrossRent600_649_&_years. GrossRent650_699_&_years. 
+				GrossRent700_749_&_years. GrossRent750_799_&_years. 
+				GrossRent800_899_&_years. GrossRent900_999_&_years.
+				GrossRent1000_1249_&_years. GrossRent1250_1499_&_years.
+				GrossRent1500_1999_&_years. GrossRent2000_2499_&_years.
+				GrossRent2500_2999_&_years. GrossRent3000_3499_&_years.
+				GrossRentGT3500_&_years. GrossRentNoCash_&_years.
+				IncmByRenterCst_LT10K_&_years. IncmByRenterCst_10_19K_&_years.
+				IncmByRenterCst_20_34K_&_years. IncmByRenterCst_35_49K_&_years.
+				IncmByRenterCst_50_74K_&_years. IncmByRenterCst_75_99K_&_years.
+				IncmByRenterCst_GT100K_&_years.
+				AgeByRenterCst_15_24_&_years. AgeByRenterCst_25_34_&_years.
+				AgeByRenterCst_35_64_&_years. AgeByRenterCst_65Over_&_years.
+				AgeByOwnerCst_15_24_&_years. AgeByOwnerCst_25_34_&_years.
+				AgeByOwnerCst_35_64_&_years. AgeByOwnerCst_65Over_&_years.
 				RentCostBurdenDenom_&_years. OwnerCostBurdenDenom_&_years. 
 				NumRenterCostBurden_&_years. NumRentSevereCostBurden_&_years. 
 				NumOwnerCostBurden_&_years. NumOwnSevereCostBurden_&_years.
@@ -74,13 +98,7 @@ data compile_bpk_tabs_&geosuf;
 				NumRentCstBurden_20_34K_&_years. NumRentCstBurden_35_49K_&_years. 
 				NumRentCstBurden_50_74K_&_years. NumRentCstBurden_75_99K_&_years. 
 				NumRentCstBurden_GT100K_&_years.
-				GrossRentLT100_499_&_years. GrossRent500_799_&_years.
-				GrossRent800_899_&_years. GrossRent900_999_&_years.
-				GrossRent1000_1249_&_years. GrossRent1250_1499_&_years.
-				GrossRent1500_1999_&_years. GrossRent2000_2499_&_years.
-				GrossRent2500_2999_&_years. GrossRent3000_3499_&_years.
-				GrossRentGT3500_&_years. )
-
+					)
 
 		RealProp.num_units_&geosuf 
 			(keep= &geo units_sf_2000 units_sf_2001 units_sf_2002 
@@ -202,32 +220,32 @@ data compile_bpk_tabs_&geosuf;
 			PctOwnerCostBurden_&_years. = NumOwnerCostBurden_&_years./OwnerCostBurdenDenom_&_years.;
 			PctOwnSevereCostBurden_&_years. = NumOwnSevereCostBurden_&_years./OwnerCostBurdenDenom_&_years.;
 
-			PctRentCstBurden_15_24_&_years. = NumRentCstBurden_15_24_&_years. / RentCostBurdenDenom_&_years.;
-			PctRentCstBurden_25_34_&_years. = NumRentCstBurden_25_34_&_years. / RentCostBurdenDenom_&_years.;
-			PctRentCstBurden_35_64_&_years. = NumRentCstBurden_35_64_&_years. / RentCostBurdenDenom_&_years.;
-			PctRentCstBurden_65Over_&_years. = NumRentCstBurden_65Over_&_years. / RentCostBurdenDenom_&_years.;
+			PctRentCstBurden_15_24_&_years. = NumRentCstBurden_15_24_&_years. / AgeByRenterCst_15_24_&_years.;
+			PctRentCstBurden_25_34_&_years. = NumRentCstBurden_25_34_&_years. / AgeByRenterCst_25_34_&_years.;
+			PctRentCstBurden_35_64_&_years. = NumRentCstBurden_35_64_&_years. / AgeByRenterCst_35_64_&_years.;
+			PctRentCstBurden_65Over_&_years. = NumRentCstBurden_65Over_&_years. / AgeByRenterCst_65Over_&_years.;
 
-			PctOwnCstBurden_15_24_&_years. = NumOwnCstBurden_15_24_&_years. / OwnerCostBurdenDenom_&_years.;
-			PctOwnCstBurden_25_34_&_years. = NumOwnCstBurden_25_34_&_years. / OwnerCostBurdenDenom_&_years.;
-			PctOwnCstBurden_35_64_&_years. = NumOwnCstBurden_35_64_&_years. / OwnerCostBurdenDenom_&_years.;
-			PctOwnCstBurden_65Over_&_years. = NumOwnCstBurden_65Over_&_years. / OwnerCostBurdenDenom_&_years.;
+			PctOwnCstBurden_15_24_&_years. = NumOwnCstBurden_15_24_&_years. / AgeByOwnerCst_15_24_&_years.;
+			PctOwnCstBurden_25_34_&_years. = NumOwnCstBurden_25_34_&_years. / AgeByOwnerCst_25_34_&_years.;
+			PctOwnCstBurden_35_64_&_years. = NumOwnCstBurden_35_64_&_years. / AgeByOwnerCst_35_64_&_years.;
+			PctOwnCstBurden_65Over_&_years. = NumOwnCstBurden_65Over_&_years. / AgeByOwnerCst_65Over_&_years.;
 
-			PctRentCstBurden_LT10K_&_years. = NumRentCstBurden_LT10K_&_years. / RentCostBurdenDenom_&_years.;
-			PctRentCstBurden_10_19K_&_years. = NumRentCstBurden_10_19K_&_years. / RentCostBurdenDenom_&_years.;
-			PctRentCstBurden_20_34K_&_years. = NumRentCstBurden_20_34K_&_years. / RentCostBurdenDenom_&_years.;
-			PctRentCstBurden_35_49K_&_years. = NumRentCstBurden_35_49K_&_years. / RentCostBurdenDenom_&_years.;
-			PctRentCstBurden_50_74K_&_years. = NumRentCstBurden_50_74K_&_years. / RentCostBurdenDenom_&_years.;
-			PctRentCstBurden_75_99K_&_years. = NumRentCstBurden_75_99K_&_years. / RentCostBurdenDenom_&_years.;
-			PctRentCstBurden_GT100K_&_years. = NumRentCstBurden_GT100K_&_years. / RentCostBurdenDenom_&_years.;
+			PctRentCstBurden_LT10K_&_years. = NumRentCstBurden_LT10K_&_years. / IncmByRenterCst_LT10K_&_years.;
+			PctRentCstBurden_10_19K_&_years. = NumRentCstBurden_10_19K_&_years. / IncmByRenterCst_10_19K_&_years.;
+			PctRentCstBurden_20_34K_&_years. = NumRentCstBurden_20_34K_&_years. / IncmByRenterCst_20_34K_&_years.;
+			PctRentCstBurden_35_49K_&_years. = NumRentCstBurden_35_49K_&_years. / IncmByRenterCst_35_49K_&_years.;
+			PctRentCstBurden_50_74K_&_years. = NumRentCstBurden_50_74K_&_years. / IncmByRenterCst_50_74K_&_years.;
+			PctRentCstBurden_75_99K_&_years. = NumRentCstBurden_75_99K_&_years. / IncmByRenterCst_75_99K_&_years.;
+			PctRentCstBurden_GT100K_&_years. = NumRentCstBurden_GT100K_&_years. / IncmByRenterCst_GT100K_&_years.;
 
-			PctOwnCstBurden_LT10K_&_years. = NumOwnCstBurden_LT10K_&_years. / OwnerCostBurdenDenom_&_years.;
-			PctOwnCstBurden_10_19K_&_years. = NumOwnCstBurden_10_19K_&_years. / OwnerCostBurdenDenom_&_years.;
-			PctOwnCstBurden_20_34K_&_years. = NumOwnCstBurden_20_34K_&_years. / OwnerCostBurdenDenom_&_years.;
-			PctOwnCstBurden_35_49K_&_years. = NumOwnCstBurden_35_49K_&_years. / OwnerCostBurdenDenom_&_years.;
-			PctOwnCstBurden_50_74K_&_years. = NumOwnCstBurden_50_74K_&_years. / OwnerCostBurdenDenom_&_years.;
-			PctOwnCstBurden_75_99K_&_years. = NumOwnCstBurden_75_99K_&_years. / OwnerCostBurdenDenom_&_years.;
-			PctOwnCstBurden_100_149_&_years. = NumOwnCstBurden_100_149_&_years. / OwnerCostBurdenDenom_&_years.;
-			PctOwnCstBurden_GT150K_&_years. = NumOwnCstBurden_GT150K_&_years. / OwnerCostBurdenDenom_&_years.;
+			PctOwnCstBurden_LT10K_&_years. = NumOwnCstBurden_LT10K_&_years. / IncmByOwnerCst_LT10K_&_years.;
+			PctOwnCstBurden_10_19K_&_years. = NumOwnCstBurden_10_19K_&_years. / IncmByOwnerCst_10_19K_&_years.;
+			PctOwnCstBurden_20_34K_&_years. = NumOwnCstBurden_20_34K_&_years. / IncmByOwnerCst_20_34K_&_years.;
+			PctOwnCstBurden_35_49K_&_years. = NumOwnCstBurden_35_49K_&_years. / IncmByOwnerCst_35_49K_&_years.;
+			PctOwnCstBurden_50_74K_&_years. = NumOwnCstBurden_50_74K_&_years. / IncmByOwnerCst_50_74K_&_years.;
+			PctOwnCstBurden_75_99K_&_years. = NumOwnCstBurden_75_99K_&_years. / IncmByOwnerCst_75_99K_&_years;
+			PctOwnCstBurden_100_149_&_years. = NumOwnCstBurden_100_149_&_years. / IncmByOwnerCst_100_149_&_years.;
+			PctOwnCstBurden_GT150K_&_years. = NumOwnCstBurden_GT150K_&_years. / IncmByOwnerCst_150K_&_years.;
 
 		/*Education*/
 			PctHS_&_years. = pop25andoverwhs_&_years. / pop25andoveryears_&_years.;
@@ -301,7 +319,7 @@ proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge 
 			NumRenterOccupiedHU_&_years. 
 			PctHomeownership_&_years. 
 
-			GrossRentLT100_499_&_years. GrossRent500_799_&_years.
+			GrossRentLT100_&_years. GrossRent100_149_&_years. 
 			GrossRent800_899_&_years. GrossRent900_999_&_years.
 			GrossRent1000_1249_&_years. GrossRent1250_1499_&_years.
 			GrossRent1500_1999_&_years. GrossRent2000_2499_&_years.
@@ -464,7 +482,19 @@ proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge 
 			violent_crime_rate_2011 violent_crime_rate_2012 
 			violent_crime_rate_2013 violent_crime_rate_2014
 			violent_crime_rate_2015 violent_crime_rate_2016 
+	
+		/*More variables - added to the bottom to preserve linked formulas in csv*/
+
+			GrossRent150_199_&_years.  
+			GrossRent200_249_&_years. GrossRent250_299_&_years. 
+			GrossRent300_349_&_years. GrossRent350_349_&_years. 
+			GrossRent400_449_&_years. GrossRent450_499_&_years. 
+			GrossRent500_549_&_years. GrossRent550_599_&_years. 
+			GrossRent600_649_&_years. GrossRent650_699_&_years. 
+			GrossRent700_749_&_years. GrossRent750_799_&_years. 
+			GrossRentNoCash_&_years.
 		;
+
 id &geo; 
 run; 
 
