@@ -45,7 +45,7 @@ data compile_bpk_tabs_&geosuf;
 				IncmByOwnerCst_LT10K_&_years. IncmByOwnerCst_10_19K_&_years.
 				IncmByOwnerCst_20_34K_&_years. IncmByOwnerCst_35_49K_&_years.
 				IncmByOwnerCst_50_74K_&_years. IncmByOwnerCst_75_99K_&_years.
-				IncmByOwnerCst_100_149_&_years. IncmByOwnerCst_150K_&_years.
+				IncmByOwnerCst_100_149_&_years. IncmByOwnerCst_GT150K_&_years.
 				NumOwnCstBurden_LT10K_&_years. NumOwnCstBurden_10_19K_&_years. 
 				NumOwnCstBurden_20_34K_&_years. NumOwnCstBurden_35_49K_&_years. 
 				NumOwnCstBurden_50_74K_&_years. NumOwnCstBurden_75_99K_&_years. 
@@ -245,7 +245,7 @@ data compile_bpk_tabs_&geosuf;
 			PctOwnCstBurden_50_74K_&_years. = NumOwnCstBurden_50_74K_&_years. / IncmByOwnerCst_50_74K_&_years.;
 			PctOwnCstBurden_75_99K_&_years. = NumOwnCstBurden_75_99K_&_years. / IncmByOwnerCst_75_99K_&_years;
 			PctOwnCstBurden_100_149_&_years. = NumOwnCstBurden_100_149_&_years. / IncmByOwnerCst_100_149_&_years.;
-			PctOwnCstBurden_GT150K_&_years. = NumOwnCstBurden_GT150K_&_years. / IncmByOwnerCst_150K_&_years.;
+			PctOwnCstBurden_GT150K_&_years. = NumOwnCstBurden_GT150K_&_years. / IncmByOwnerCst_GT150K_&_years.;
 
 		/*Education*/
 			PctHS_&_years. = pop25andoverwhs_&_years. / pop25andoveryears_&_years.;
