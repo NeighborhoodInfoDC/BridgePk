@@ -498,7 +498,7 @@ proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge 
 id &geo; 
 run; 
 
-%File_info( data=bpk_tabs_&geosuf, contents=n, printobs=0 )
+%File_info( data=compile_bpk_tabs_&geosuf, contents=n, printobs=0 )
 
 proc export data=bpk_tabs_&geosuf
 	outfile="&_dcdata_default_path\BridgePk\Data\bpktabs_&geosuf..csv"
