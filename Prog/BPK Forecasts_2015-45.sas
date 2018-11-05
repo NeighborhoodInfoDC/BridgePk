@@ -22,14 +22,8 @@
 %DCData_lib( General )
 
 
-data bpk_tr10_popforecasts;
+data bpk_popforecasts;
 	set planning.Pop_forecast_r9_dc_tr10;
-	where geo2010 = "11001006500" or geo2010 = "11001006600" or geo2010 = "11001006700" or
-		geo2010 = "11001006802" or geo2010 = "11001006900" or geo2010 = "11001007000" or
-		geo2010 = "11001007100" or geo2010 = "11001007200" or geo2010 = "11001007401" or
-		geo2010 = "11001007406" or geo2010 = "11001007407" or geo2010 = "11001007503" or
-		geo2010 = "11001007504" or geo2010 = "11001007601" or geo2010 = "11001007605";
-
 	/*Percent change in employment for base year 2010*/
 		e10_15pct = ((emp2015 - emp2010)/emp2010)*100;
 		e10_20pct = ((emp2020 - emp2010)/emp2010)*100;
@@ -83,7 +77,22 @@ data bpk_tr10_popforecasts;
 
 run;
 
-proc export data=bpk_tr10_popforecasts
-	outfile="D:\DCData\Libraries\BridgePk\Data\bpktr10forecasts.csv"
+data bpk_popforecasts_trmerge;
+	merge bpk_popforecasts general.geo2010 (keep=tract tract6 ntract);
+run;	
+
+
+data bpk_popforecasts_tr10;
+	set bpk_popforecasts_trmerge;
+	where geo2010 = "11001006500" or geo2010 = "11001006600" or geo2010 = "11001006700" or
+		geo2010 = "11001006802" or geo2010 = "11001006900" or geo2010 = "11001007000" or
+		geo2010 = "11001007100" or geo2010 = "11001007200" or geo2010 = "11001007401" or
+		geo2010 = "11001007406" or geo2010 = "11001007407" or geo2010 = "11001007503" or
+		geo2010 = "11001007504" or geo2010 = "11001007601" or geo2010 = "11001007605";
+run;
+
+
+proc export data=bpk_popforecasts_tr10
+	outfile="D:\DCData\Libraries\BridgePk\Data\bpkforecasts_tr10.csv"
 	dbms=csv replace;
 	run;
