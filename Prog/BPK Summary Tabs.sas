@@ -507,7 +507,7 @@ run;
 %File_info( data=compile_bpk_tabs2_&geosuf, contents=n, printobs=0 )
 
 proc export data=bpk_tabs2_&geosuf
-	outfile="&_dcdata_default_path\BridgePk\Data\bpktabs2_&geosuf..csv"
+	outfile="&_dcdata_default_path\BridgePk\Raw\bpktabs2_&geosuf..csv"
 	dbms=csv replace;
 	run;
 

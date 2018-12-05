@@ -9,6 +9,8 @@
  
  Description:  Adapted from "BPKPresentationResults" program created by Jay Dev in March 2017.
 			   This program outputs compiled summary data at the city, ward, 11th Street Bridge Park geographies.
+			   
+ Updated with 2012-16 ACS data.
 
 **************************************************************************/
 
@@ -549,7 +551,7 @@ run;
 %File_info( data=compile_bpk_tabs_2012_16_&geosuf, contents=n, printobs=0 )
 
 proc export data=bpk_tabs_2012_16_&geosuf
-	outfile="&_dcdata_default_path\BridgePk\Data\bpktabs_2012_16_&geosuf..csv"
+	outfile="&_dcdata_default_path\BridgePk\Raw\bpktabs_2012_16_&geosuf..csv"
 	dbms=csv replace;
 	run;
 
