@@ -24,7 +24,7 @@
 
 data common_lots;
 
-	set BridgePk.Comm_Lots_Zone (keep = ssl usecode landarea premiseadd unitnumber ownername careofname; 
+	set BridgePk.Comm_Lots_Zone (keep = ssl usecode landarea premiseadd unitnumber ownername careofname); 
 
 
 proc sort 
@@ -36,7 +36,7 @@ data dc_owned;
 
 	length ssl $17;
 	set BridgePk.District_Government_Land;
-	keep objectid address_id ownership_ building_u use_code use_descri leased agency ssl source premiseadd;
+	keep objectid address_id ownership_ building_u use_code use_descri leased agency ssl source address;
 
 run;
 
@@ -71,6 +71,7 @@ run;
 
 data cama_res;
 
+	length ssl $17;
 	set realprop.camarespt_2017_08;
 
 run;
@@ -83,6 +84,7 @@ run;
 
 data cama_comm;
 
+	length ssl $17;
 	set realprop.camacommpt_2017_08 (rename = extwall = extwalltype);
 
 run;
@@ -95,6 +97,7 @@ run;
 
 data cama_cond;
 
+	length ssl $17;
 	set realprop.camacondpt_2017_08;
 
 run;
@@ -314,7 +317,7 @@ run;
 
 data parcel_geo_owns;
 
-	merge common_lots (keep = SSL premiseadd) base geo who_owns dc_owned rent_control cama_full subsidized;
+	merge common_lots (keep = SSL premiseadd) base geo who_owns dc_owned rent_control cama_full (rename=(usecode=usecode_cama)) subsidized;
 	by SSL;
 
 run;
@@ -369,7 +372,7 @@ run;
   proc print data= parcel_geo_owns_test n='Total unmatched = ';
     where missing( ward2012 );
     id SSL ;
-    var Address1 condolot ownercat;
+    var address premiseadd /*condolot*/ ownercat;
     title2 "**** UNMATCHED PARCELS (MISSING GEOGRAPHY) ****";
   run;
 
