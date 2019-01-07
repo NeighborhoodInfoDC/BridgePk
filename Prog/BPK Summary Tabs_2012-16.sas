@@ -9,6 +9,8 @@
  
  Description:  Adapted from "BPKPresentationResults" program created by Jay Dev in March 2017.
 			   This program outputs compiled summary data at the city, ward, 11th Street Bridge Park geographies.
+			   
+ Updated with 2012-16 ACS data.
 
 **************************************************************************/
 
@@ -23,18 +25,20 @@
 
 
 ** Define time periods  **;
-%let _years = 2011_15;
-%let year_lbl = 2011-15;
+%let _years = 2012_16;
+%let year_lbl = 2012-16;
 
 %macro Compile_bpk_data (geo, geosuf);
 
-data compile_bpk_tabs_&geosuf;
+data compile_bpk_tabs_2012_16_&geosuf;
 	merge 
-		ACS.acs_2011_15_dc_sum_tr_&geosuf
+		ACS.acs_2012_16_dc_sum_tr_&geosuf
 			(keep= &geo
+				totpop_&_years.
 				popincivlaborforce_&_years.
 				pop16andoveryears_&_years. popcivilianemployed_&_years. popunemployed_&_years. 
 				poppoorpersons_&_years. personspovertydefined_&_years. popwithrace_&_years. 
+				poppoorchildren_&_years. childrenpovertydefined_&_years.
 				PopEmployedTravel_&_years. PopEmployedTravel_LT5_&_years.
 				PopEmployedTravel_5_9_&_years. PopEmployedTravel_10_14_&_years.
 				PopEmployedTravel_15_19_&_years. PopEmployedTravel_20_24_&_years. 
@@ -42,31 +46,8 @@ data compile_bpk_tabs_&geosuf;
 				PopEmployedTravel_35_39_&_years. PopEmployedTravel_40_44_&_years. 
 				PopEmployedTravel_45_59_&_years. PopEmployedTravel_60_89_&_years. 
 				PopEmployedTravel_GT90_&_years.
-				IncmByOwnerCst_LT10K_&_years. IncmByOwnerCst_10_19K_&_years.
-				IncmByOwnerCst_20_34K_&_years. IncmByOwnerCst_35_49K_&_years.
-				IncmByOwnerCst_50_74K_&_years. IncmByOwnerCst_75_99K_&_years.
-				IncmByOwnerCst_100_149_&_years. IncmByOwnerCst_GT150K_&_years.
-				NumOwnCstBurden_LT10K_&_years. NumOwnCstBurden_10_19K_&_years. 
-				NumOwnCstBurden_20_34K_&_years. NumOwnCstBurden_35_49K_&_years. 
-				NumOwnCstBurden_50_74K_&_years. NumOwnCstBurden_75_99K_&_years. 
-				NumOwnCstBurden_100_149_&_years. NumOwnCstBurden_GT150K_&_years. )
-
-
-		Acs.Acs_2011_15_dc_sum_bg_&geosuf
-			(keep= &geo 
-				popwhitenonhispbridge_&_years. popblacknonhispbridge_&_years. pophisp_&_years. 
-				popasianpinonhispbridge_&_years. popotherracenonhispbridg_&_years. 
-				pop25andoveryears_&_years. pop25andoverwhs_&_years. Pop25andOverWoutHS_&_years. pop25andoverwcollege_&_years. 
-				PopEmployedByInd_&_years. PopEmployedAgric_&_years. PopEmployedConstr_&_years. 
-				PopEmployedManuf_&_years. PopEmployedWhlsale_&_years. PopEmployedRetail_&_years. 
-				PopEmployedTransprt_&_years. PopEmployedInfo_&_years. PopEmployedFinance_&_years. 
-				PopEmployedProfServ_&_years. PopEmployedEduction_&_years. PopEmployedArts_&_years. 
-				PopEmployedOther_&_years. PopEmployedPubAdmin_&_years.
-				PopEmployedByOcc_&_years. PopEmployedMngmt_&_years.
-				PopEmployedServ_&_years. PopEmployedSales_&_years.
-				PopEmployedNatRes_&_years. PopEmployedProd_&_years. 
-				PopEmployedWorkers_&_years. PopEmployedWorkInState_&_years. PopEmployedWorkOutState_&_years.
 				NumRenterOccupiedHU_&_years. NumOwnerOccupiedHU_&_years. NumOccupiedHsgUnits_&_years.
+				medianhomevalue_&_years.
 				GrossRentLT100_&_years. GrossRent100_149_&_years. GrossRent150_199_&_years.  
 				GrossRent200_249_&_years. GrossRent250_299_&_years. 
 				GrossRent300_349_&_years. GrossRent350_349_&_years. 
@@ -97,44 +78,82 @@ data compile_bpk_tabs_&geosuf;
 				NumRentCstBurden_LT10K_&_years. NumRentCstBurden_10_19K_&_years. 
 				NumRentCstBurden_20_34K_&_years. NumRentCstBurden_35_49K_&_years. 
 				NumRentCstBurden_50_74K_&_years. NumRentCstBurden_75_99K_&_years. 
-				NumRentCstBurden_GT100K_&_years.
+				NumRentCstBurden_GT100K_&_years. IncmByOwnerCst_LT10K_&_years. 
+				IncmByOwnerCst_10_19K_&_years.
+				IncmByOwnerCst_20_34K_&_years. IncmByOwnerCst_35_49K_&_years.
+				IncmByOwnerCst_50_74K_&_years. IncmByOwnerCst_75_99K_&_years.
+				IncmByOwnerCst_100_149_&_years. IncmByOwnerCst_GT150K_&_years.
+				NumOwnCstBurden_LT10K_&_years. NumOwnCstBurden_10_19K_&_years. 
+				NumOwnCstBurden_20_34K_&_years. NumOwnCstBurden_35_49K_&_years. 
+				NumOwnCstBurden_50_74K_&_years. NumOwnCstBurden_75_99K_&_years. 
+				NumOwnCstBurden_100_149_&_years. NumOwnCstBurden_GT150K_&_years.
+				MedFamIncm_&_years. FamIncomeLT75k_&_years. FamIncomeGT200k_&_years.)
+
+
+		Acs.Acs_2012_16_dc_sum_bg_&geosuf
+			(keep= &geo 
+				popwhitenonhispbridge_&_years. popblacknonhispbridge_&_years. pophisp_&_years. 
+				popasianpinonhispbridge_&_years. popotherracenonhispbridg_&_years. 
+				pop25andoveryears_&_years. pop25andoverwhs_&_years. Pop25andOverWoutHS_&_years. pop25andoverwcollege_&_years. 
+				PopEmployedByInd_&_years. PopEmployedAgric_&_years. PopEmployedConstr_&_years. 
+				PopEmployedManuf_&_years. PopEmployedWhlsale_&_years. PopEmployedRetail_&_years. 
+				PopEmployedTransprt_&_years. PopEmployedInfo_&_years. PopEmployedFinance_&_years. 
+				PopEmployedProfServ_&_years. PopEmployedEduction_&_years. PopEmployedArts_&_years. 
+				PopEmployedOther_&_years. PopEmployedPubAdmin_&_years.
+				PopEmployedByOcc_&_years. PopEmployedMngmt_&_years.
+				PopEmployedServ_&_years. PopEmployedSales_&_years.
+				PopEmployedNatRes_&_years. PopEmployedProd_&_years. 
+				PopEmployedWorkers_&_years. PopEmployedWorkInState_&_years. PopEmployedWorkOutState_&_years.
+		
+				NumFamilies_&_years.
 					)
 
 		RealProp.num_units_&geosuf 
 			(keep= &geo units_sf_2000 units_sf_2001 units_sf_2002 
 				units_sf_2003 units_sf_2004 units_sf_2005 units_sf_2006 units_sf_2007 
 				units_sf_2008 units_sf_2009 units_sf_2010 units_sf_2011 units_sf_2012 
-				units_sf_2013 units_sf_2014 units_sf_2015 units_sf_2016
+				units_sf_2013 units_sf_2014 units_sf_2015 units_sf_2016 units_sf_2017 
+				units_sf_2018
 
 				units_condo_2000 units_condo_2001 units_condo_2002
 				units_condo_2003 units_condo_2004 units_condo_2005 units_condo_2006 units_condo_2007 
 				units_condo_2008 units_condo_2009 units_condo_2010 units_condo_2011 units_condo_2012 
-				units_condo_2013 units_condo_2014 units_condo_2015 units_condo_2016)
+				units_condo_2013 units_condo_2014 units_condo_2015 units_condo_2016 units_condo_2017
+				units_condo_2018)
 					
 		RealProp.sales_sum_&geosuf 
 			(keep= &geo sales_sf_2000 sales_sf_2001
 				sales_sf_2002 sales_sf_2003 sales_sf_2004 sales_sf_2005 
 				sales_sf_2006 sales_sf_2007 sales_sf_2008 sales_sf_2009 
 				sales_sf_2010 sales_sf_2011 sales_sf_2012 sales_sf_2013
-				sales_sf_2014 sales_sf_2015 sales_sf_2016 
+				sales_sf_2014 sales_sf_2015 sales_sf_2016 sales_sf_2017
 
 				r_mprice_sf_2000 
 				r_mprice_sf_2001 r_mprice_sf_2002 r_mprice_sf_2003 r_mprice_sf_2004
 				r_mprice_sf_2005 r_mprice_sf_2006 r_mprice_sf_2007 r_mprice_sf_2008
 				r_mprice_sf_2009 r_mprice_sf_2010 r_mprice_sf_2011 r_mprice_sf_2012
 				r_mprice_sf_2013 r_mprice_sf_2014 r_mprice_sf_2015 r_mprice_sf_2016
+				r_mprice_sf_2017
 
 				sales_condo_2000 sales_condo_2001
 				sales_condo_2002 sales_condo_2003 sales_condo_2004 sales_condo_2005 
 				sales_condo_2006 sales_condo_2007 sales_condo_2008 sales_condo_2009 
 				sales_condo_2010 sales_condo_2011 sales_condo_2012 sales_condo_2013
-				sales_condo_2014 sales_condo_2015 sales_condo_2016
+				sales_condo_2014 sales_condo_2015 sales_condo_2016 sales_condo_2017
 
 				r_mprice_condo_2000
 				r_mprice_condo_2001 r_mprice_condo_2002 r_mprice_condo_2003 r_mprice_condo_2004
 				r_mprice_condo_2005 r_mprice_condo_2006 r_mprice_condo_2007 r_mprice_condo_2008
 				r_mprice_condo_2009 r_mprice_condo_2010 r_mprice_condo_2011 r_mprice_condo_2012
-				r_mprice_condo_2013 r_mprice_condo_2014 r_mprice_condo_2015 r_mprice_condo_2016)
+				r_mprice_condo_2013 r_mprice_condo_2014 r_mprice_condo_2015 r_mprice_condo_2016
+				r_mprice_condo_2017
+
+				r_mprice_tot_2000
+				r_mprice_tot_2001 r_mprice_tot_2002 r_mprice_tot_2003 r_mprice_tot_2004
+				r_mprice_tot_2005 r_mprice_tot_2006 r_mprice_tot_2007 r_mprice_tot_2008
+				r_mprice_tot_2009 r_mprice_tot_2010 r_mprice_tot_2011 r_mprice_tot_2012
+				r_mprice_tot_2013 r_mprice_tot_2014 r_mprice_tot_2015 r_mprice_tot_2016
+				r_mprice_tot_2017)
 
 		Police.Crimes_sum_&geosuf
 			(keep=&geo 
@@ -144,17 +163,19 @@ data compile_bpk_tabs_&geosuf;
 				crimes_pt1_property_2008 crimes_pt1_property_2009 crimes_pt1_property_2010
 				crimes_pt1_property_2011 crimes_pt1_property_2012 crimes_pt1_property_2013
 				crimes_pt1_property_2014 crimes_pt1_property_2015 crimes_pt1_property_2016 
+				crimes_pt1_property_2017 
 				crimes_pt1_violent_2000 crimes_pt1_violent_2001 
 				crimes_pt1_violent_2002 crimes_pt1_violent_2003 crimes_pt1_violent_2004 
 				crimes_pt1_violent_2005 crimes_pt1_violent_2006 crimes_pt1_violent_2007 
 				crimes_pt1_violent_2008 crimes_pt1_violent_2009 crimes_pt1_violent_2010 
 				crimes_pt1_violent_2011 crimes_pt1_violent_2012 crimes_pt1_violent_2013 
 				crimes_pt1_violent_2014 crimes_pt1_violent_2015 crimes_pt1_violent_2016 
+				crimes_pt1_violent_2017
 				crime_rate_pop_2000 crime_rate_pop_2001 crime_rate_pop_2002 crime_rate_pop_2003 
 				crime_rate_pop_2004 crime_rate_pop_2005 crime_rate_pop_2006 crime_rate_pop_2007 
 				crime_rate_pop_2008 crime_rate_pop_2009 crime_rate_pop_2010 crime_rate_pop_2011 
 				crime_rate_pop_2012 crime_rate_pop_2013 crime_rate_pop_2014 crime_rate_pop_2015 
-				crime_rate_pop_2016)
+				crime_rate_pop_2016 crime_rate_pop_2017)
 		
 		NCDB.Ncdb_sum_&geosuf
 			(keep= &geo totpop_1990 totpop_2000 
@@ -170,13 +191,14 @@ data compile_bpk_tabs_&geosuf;
 			PctPopEmployed_&_years. = popcivilianemployed_&_years. / popincivlaborforce_&_years.;
 			PctPopUnemployed_&_years. = popunemployed_&_years. / popincivlaborforce_&_years.;
 			PctPoorPersons_&_years. = poppoorpersons_&_years. / personspovertydefined_&_years.;
+			PctPoorChildren_&_years. = poppoorchildren_&_years. / childrenpovertydefined_&_years.;
 
 		/*Employment by major occupations*/
-			PctEmpMngmt_&_years. = popemployedmngmt_&_years. / popemployedbyocc_2011_15;
-			PctEmpNatRes_&_years. = popemployednatres_&_years. / popemployedbyocc_2011_15;
-			PctEmpProd_&_years. = popemployedprod_&_years. / popemployedbyocc_2011_15;
-			PctEmpSales_&_years. = popemployedsales_&_years. / popemployedbyocc_2011_15;
-			PctEmpServ_&_years. = popemployedserv_&_years. / popemployedbyocc_2011_15;
+			PctEmpMngmt_&_years. = popemployedmngmt_&_years. / popemployedbyocc_2012_16;
+			PctEmpNatRes_&_years. = popemployednatres_&_years. / popemployedbyocc_2012_16;
+			PctEmpProd_&_years. = popemployedprod_&_years. / popemployedbyocc_2012_16;
+			PctEmpSales_&_years. = popemployedsales_&_years. / popemployedbyocc_2012_16;
+			PctEmpServ_&_years. = popemployedserv_&_years. / popemployedbyocc_2012_16;
 
 		/*Employment by major industries*/
 			PctEmpAgric_&_years. = PopEmployedAgric_&_years. / popemployedbyind_&_years.;
@@ -214,7 +236,8 @@ data compile_bpk_tabs_&geosuf;
 			PctEmployedTravel_GT90_&_years. = PopEmployedTravel_GT90_&_years. / PopEmployedTravel_&_years.;
 
 		/*Homeownership, rent, and cost burden by age of householder and household income*/
-			PctHomeownership_&_years. = numowneroccupiedhu_&_years. / numoccupiedhsgunits_&_years.;
+			PctOwnerOccupiedHU_&_years. = numowneroccupiedhu_&_years. / numoccupiedhsgunits_&_years.;
+			PctRenterOccupiedHU_&_years. = numrenteroccupiedhu_&_years. / numoccupiedhsgunits_&_years.;
 			PctRenterCostBurden_&_years. = NumRenterCostBurden_&_years./RentCostBurdenDenom_&_years.;
 			PctRentSevereCostBurden_&_years. = NumRentSevereCostBurden_&_years./RentCostBurdenDenom_&_years.;
 			PctOwnerCostBurden_&_years. = NumOwnerCostBurden_&_years./OwnerCostBurdenDenom_&_years.;
@@ -277,6 +300,8 @@ data compile_bpk_tabs_&geosuf;
 			property_crime_rate_2014 = crimes_pt1_property_2014 / crime_rate_pop_2014;
 			property_crime_rate_2015 = crimes_pt1_property_2015 / crime_rate_pop_2015;
 			property_crime_rate_2016 = crimes_pt1_property_2016 / crime_rate_pop_2016;
+			property_crime_rate_2017 = crimes_pt1_property_2017 / crime_rate_pop_2017;
+
 
 		/*Violent crime rates*/
 			violent_crime_rate_2000 = crimes_pt1_violent_2000 / crime_rate_pop_2000;
@@ -296,15 +321,16 @@ data compile_bpk_tabs_&geosuf;
 			violent_crime_rate_2014 = crimes_pt1_violent_2014 / crime_rate_pop_2014;
 			violent_crime_rate_2015 = crimes_pt1_violent_2015 / crime_rate_pop_2015;
 			violent_crime_rate_2016 = crimes_pt1_violent_2016 / crime_rate_pop_2016;
-
+			violent_crime_rate_2017 = crimes_pt1_violent_2017 / crime_rate_pop_2017;
 	run;
 
-proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge Park Tabulations, &geo");
+proc transpose data=compile_bpk_tabs_2012_16_&geosuf out=bpk_tabs_2012_16_&geosuf(label="Bridge Park Tabulations, &geo");
 	var 	&geo 	
 
 		/*Population*/
-			totpop_1990 totpop_2000 totpop_2010
+			totpop_&_years. totpop_1990 totpop_2000 totpop_2010
 			numoccupiedhsgunits_1990 numoccupiedhsgunits_2000 numoccupiedhsgunits_2010 
+			numoccupiedhsgunits_&_years.
 		
 		/*Race and ethnicity*/
 			popwithrace_&_years. 
@@ -316,8 +342,12 @@ proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge 
 	
 		/*Homeownership, rent, and cost burden*/
 			NumOwnerOccupiedHU_&_years.
+			PctOwnerOccupiedHU_&_years. 
 			NumRenterOccupiedHU_&_years. 
-			PctHomeownership_&_years. 
+			PctRenterOccupiedHU_&_years. 
+			PctOwnerOccupiedHU_&_years. 
+
+			medianhomevalue_&_years.
 
 			GrossRentLT100_&_years. GrossRent100_149_&_years. 
 			GrossRent800_899_&_years. GrossRent900_999_&_years.
@@ -367,6 +397,13 @@ proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge 
 			PctPoorPersons_&_years.
 			poppoorpersons_&_years. 
 			personspovertydefined_&_years. 
+			PctPoorChildren_&_years.
+			poppoorchildren_&_years.
+			childrenpovertydefined_&_years.
+			MedFamIncm_&_years.
+			FamIncomeLT75k_&_years.
+			FamIncomeGT200k_&_years.
+			NumFamilies_&_years.
 
 		/*Education*/
 			Pop25andoveryears_&_years.
@@ -430,36 +467,47 @@ proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge 
 			units_sf_2000 units_sf_2001 units_sf_2002 
 			units_sf_2003 units_sf_2004 units_sf_2005 units_sf_2006 units_sf_2007 
 			units_sf_2008 units_sf_2009 units_sf_2010 units_sf_2011 units_sf_2012 
-			units_sf_2013 units_sf_2014 units_sf_2015 units_sf_2016
+			units_sf_2013 units_sf_2014 units_sf_2015 units_sf_2016 units_sf_2017 
+			units_sf_2018
 
 			units_condo_2000 units_condo_2001 units_condo_2002
 			units_condo_2003 units_condo_2004 units_condo_2005 units_condo_2006 units_condo_2007 
 			units_condo_2008 units_condo_2009 units_condo_2010 units_condo_2011 units_condo_2012 
-			units_condo_2013 units_condo_2014 units_condo_2015 units_condo_2016
+			units_condo_2013 units_condo_2014 units_condo_2015 units_condo_2016 units_condo_2017
+			units_condo_2018
 				
 			sales_sf_2000 sales_sf_2001
 			sales_sf_2002 sales_sf_2003 sales_sf_2004 sales_sf_2005 
 			sales_sf_2006 sales_sf_2007 sales_sf_2008 sales_sf_2009 
 			sales_sf_2010 sales_sf_2011 sales_sf_2012 sales_sf_2013
-			sales_sf_2014 sales_sf_2015 sales_sf_2016 
+			sales_sf_2014 sales_sf_2015 sales_sf_2016 sales_sf_2017
 
 			r_mprice_sf_2000 
 			r_mprice_sf_2001 r_mprice_sf_2002 r_mprice_sf_2003 r_mprice_sf_2004
 			r_mprice_sf_2005 r_mprice_sf_2006 r_mprice_sf_2007 r_mprice_sf_2008
 			r_mprice_sf_2009 r_mprice_sf_2010 r_mprice_sf_2011 r_mprice_sf_2012
 			r_mprice_sf_2013 r_mprice_sf_2014 r_mprice_sf_2015 r_mprice_sf_2016
+			r_mprice_sf_2017
 
 			sales_condo_2000 sales_condo_2001
 			sales_condo_2002 sales_condo_2003 sales_condo_2004 sales_condo_2005 
 			sales_condo_2006 sales_condo_2007 sales_condo_2008 sales_condo_2009 
 			sales_condo_2010 sales_condo_2011 sales_condo_2012 sales_condo_2013
-			sales_condo_2014 sales_condo_2015 sales_condo_2016
+			sales_condo_2014 sales_condo_2015 sales_condo_2016 sales_condo_2017
 
 			r_mprice_condo_2000
 			r_mprice_condo_2001 r_mprice_condo_2002 r_mprice_condo_2003 r_mprice_condo_2004
 			r_mprice_condo_2005 r_mprice_condo_2006 r_mprice_condo_2007 r_mprice_condo_2008
 			r_mprice_condo_2009 r_mprice_condo_2010 r_mprice_condo_2011 r_mprice_condo_2012
 			r_mprice_condo_2013 r_mprice_condo_2014 r_mprice_condo_2015 r_mprice_condo_2016
+			r_mprice_condo_2017
+
+			r_mprice_tot_2000
+			r_mprice_tot_2001 r_mprice_tot_2002 r_mprice_tot_2003 r_mprice_tot_2004
+			r_mprice_tot_2005 r_mprice_tot_2006 r_mprice_tot_2007 r_mprice_tot_2008
+			r_mprice_tot_2009 r_mprice_tot_2010 r_mprice_tot_2011 r_mprice_tot_2012
+			r_mprice_tot_2013 r_mprice_tot_2014 r_mprice_tot_2015 r_mprice_tot_2016
+			r_mprice_tot_2017
 
 
 		/*Violent and property crime rates: 2000 - 2016*/
@@ -472,6 +520,7 @@ proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge 
 			property_crime_rate_2011 property_crime_rate_2012 
 			property_crime_rate_2013 property_crime_rate_2014
 			property_crime_rate_2015 property_crime_rate_2016 
+			property_crime_rate_2017
 			
 			violent_crime_rate_2000
 			violent_crime_rate_2001 violent_crime_rate_2002 
@@ -482,6 +531,7 @@ proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge 
 			violent_crime_rate_2011 violent_crime_rate_2012 
 			violent_crime_rate_2013 violent_crime_rate_2014
 			violent_crime_rate_2015 violent_crime_rate_2016 
+			violent_crime_rate_2017
 	
 		/*More variables - added to the bottom to preserve linked formulas in csv*/
 
@@ -498,10 +548,10 @@ proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge 
 id &geo; 
 run; 
 
-%File_info( data=compile_bpk_tabs_&geosuf, contents=n, printobs=0 )
+%File_info( data=compile_bpk_tabs_2012_16_&geosuf, contents=n, printobs=0 )
 
-proc export data=bpk_tabs_&geosuf
-	outfile="&_dcdata_default_path\BridgePk\Data\bpktabs_&geosuf..csv"
+proc export data=bpk_tabs_2012_16_&geosuf
+	outfile="&_dcdata_default_path\BridgePk\Raw\bpktabs_2012_16_&geosuf..csv"
 	dbms=csv replace;
 	run;
 
@@ -512,5 +562,3 @@ proc export data=bpk_tabs_&geosuf
 %Compile_bpk_data (bridgepk, bpk);
 %Compile_bpk_data (ward2012, wd12);
 %Compile_bpk_data (city, city);
-
-

@@ -28,7 +28,7 @@
 
 %macro Compile_bpk_data (geo, geosuf);
 
-data compile_bpk_tabs_&geosuf;
+data compile_bpk_tabs2_&geosuf;
 	merge 
 		ACS.acs_2011_15_dc_sum_tr_&geosuf
 			(keep= &geo
@@ -49,7 +49,8 @@ data compile_bpk_tabs_&geosuf;
 				NumOwnCstBurden_LT10K_&_years. NumOwnCstBurden_10_19K_&_years. 
 				NumOwnCstBurden_20_34K_&_years. NumOwnCstBurden_35_49K_&_years. 
 				NumOwnCstBurden_50_74K_&_years. NumOwnCstBurden_75_99K_&_years. 
-				NumOwnCstBurden_100_149_&_years. NumOwnCstBurden_GT150K_&_years. )
+				NumOwnCstBurden_100_149_&_years. NumOwnCstBurden_GT150K_&_years.
+				MedFamIncm_&_years. )
 
 
 		Acs.Acs_2011_15_dc_sum_bg_&geosuf
@@ -97,7 +98,7 @@ data compile_bpk_tabs_&geosuf;
 				NumRentCstBurden_LT10K_&_years. NumRentCstBurden_10_19K_&_years. 
 				NumRentCstBurden_20_34K_&_years. NumRentCstBurden_35_49K_&_years. 
 				NumRentCstBurden_50_74K_&_years. NumRentCstBurden_75_99K_&_years. 
-				NumRentCstBurden_GT100K_&_years.
+				NumRentCstBurden_GT100K_&_years. FamIncomeLT75k_&_years. FamIncomeGT200k_&_years.
 					)
 
 		RealProp.num_units_&geosuf 
@@ -299,7 +300,7 @@ data compile_bpk_tabs_&geosuf;
 
 	run;
 
-proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge Park Tabulations, &geo");
+proc transpose data=compile_bpk_tabs2_&geosuf out=bpk_tabs2_&geosuf(label="Bridge Park Tabulations, &geo");
 	var 	&geo 	
 
 		/*Population*/
@@ -367,6 +368,9 @@ proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge 
 			PctPoorPersons_&_years.
 			poppoorpersons_&_years. 
 			personspovertydefined_&_years. 
+			MedFamIncm_&_years.
+			FamIncomeLT75k_&_years.
+			FamIncomeGT200k_&_years.
 
 		/*Education*/
 			Pop25andoveryears_&_years.
@@ -498,10 +502,10 @@ proc transpose data=compile_bpk_tabs_&geosuf out=bpk_tabs_&geosuf(label="Bridge 
 id &geo; 
 run; 
 
-%File_info( data=compile_bpk_tabs_&geosuf, contents=n, printobs=0 )
+%File_info( data=compile_bpk_tabs2_&geosuf, contents=n, printobs=0 )
 
-proc export data=bpk_tabs_&geosuf
-	outfile="&_dcdata_default_path\BridgePk\Data\bpktabs_&geosuf..csv"
+proc export data=bpk_tabs2_&geosuf
+	outfile="&_dcdata_default_path\BridgePk\Data\bpktabs2_&geosuf..csv"
 	dbms=csv replace;
 	run;
 
@@ -512,5 +516,3 @@ proc export data=bpk_tabs_&geosuf
 %Compile_bpk_data (bridgepk, bpk);
 %Compile_bpk_data (ward2012, wd12);
 %Compile_bpk_data (city, city);
-
-
