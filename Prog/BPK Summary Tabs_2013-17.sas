@@ -196,11 +196,11 @@ data compile_bpk_tabs_2013_17_&geosuf;
 			PctPoorChildren_&_years. = poppoorchildren_&_years. / childrenpovertydefined_&_years.;
 
 		/*Employment by major occupations*/
-			PctEmpMngmt_&_years. = popemployedmngmt_&_years. / popemployedbyocc_2012_16;
-			PctEmpNatRes_&_years. = popemployednatres_&_years. / popemployedbyocc_2012_16;
-			PctEmpProd_&_years. = popemployedprod_&_years. / popemployedbyocc_2012_16;
-			PctEmpSales_&_years. = popemployedsales_&_years. / popemployedbyocc_2012_16;
-			PctEmpServ_&_years. = popemployedserv_&_years. / popemployedbyocc_2012_16;
+			PctEmpMngmt_&_years. = popemployedmngmt_&_years. / popemployedbyocc_&_years.;
+			PctEmpNatRes_&_years. = popemployednatres_&_years. / popemployedbyocc_&_years.;
+			PctEmpProd_&_years. = popemployedprod_&_years. / popemployedbyocc_&_years.;
+			PctEmpSales_&_years. = popemployedsales_&_years. / popemployedbyocc_&_years.;
+			PctEmpServ_&_years. = popemployedserv_&_years. / popemployedbyocc_&_years.;
 
 		/*Employment by major industries*/
 			PctEmpAgric_&_years. = PopEmployedAgric_&_years. / popemployedbyind_&_years.;
