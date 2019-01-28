@@ -18,8 +18,7 @@
 ** Define libraries **;
 %DCData_lib( Planning )
 %DCData_lib( Bridgepk )
-%DCData_lib( ACS )
-%DCData_lib( General )
+%DCData_lib( ACS );
 
 
 data bpk_popforecasts;
@@ -77,22 +76,30 @@ data bpk_popforecasts;
 
 run;
 
-data bpk_popforecasts_trmerge;
-	merge bpk_popforecasts general.geo2010 (keep=tract tract6 ntract);
-run;	
+proc sort data=bpk_popforecasts;
+	by Geo2010;
+run;
 
+proc sort data=general.geo2010;
+	by Geo2010;
+run;
+
+data bpk_popforecasts_trmerge;
+	merge bpk_popforecasts general.geo2010 (keep=tract tract6 ntract Geo2010);
+	by Geo2010;
+run;	
 
 data bpk_popforecasts_tr10;
 	set bpk_popforecasts_trmerge;
-	where geo2010 = "11001006500" or geo2010 = "11001006600" or geo2010 = "11001006700" or
-		geo2010 = "11001006802" or geo2010 = "11001006900" or geo2010 = "11001007000" or
-		geo2010 = "11001007100" or geo2010 = "11001007200" or geo2010 = "11001007401" or
-		geo2010 = "11001007406" or geo2010 = "11001007407" or geo2010 = "11001007503" or
-		geo2010 = "11001007504" or geo2010 = "11001007601" or geo2010 = "11001007605";
+	where geo2010 in ("11001006500", "11001006600", "11001006700", 
+						"11001006802", "11001006900", "11001007000", 
+						"11001007100", "11001007200", "11001007401", 
+						"11001007406", "11001007407",  "11001007503",
+						"11001007504", "11001007601", "11001007605" );
 run;
 
 
 proc export data=bpk_popforecasts_tr10
-	outfile="D:\DCData\Libraries\BridgePk\Data\bpkforecasts_tr10.csv"
+	outfile="&_dcdata_default_path\BridgePk\Data\bpkforecasts_tr10.csv"
 	dbms=csv replace;
 	run;
