@@ -405,6 +405,18 @@ data compile_bpk_tabs_2014_18_&geosuf;
 
 		by &geo;
 
+		%dollar_convert( medianmrtginc1_4m_2009, r_medianmrtginc1_4m_2009, 2009, 2018 )
+		%dollar_convert( medianmrtginc1_4m_2010, r_medianmrtginc1_4m_2010, 2010, 2018 )
+		%dollar_convert( medianmrtginc1_4m_2011, r_medianmrtginc1_4m_2011, 2011, 2018 )
+		%dollar_convert( medianmrtginc1_4m_2012, r_medianmrtginc1_4m_2012, 2012, 2018 )
+		%dollar_convert( medianmrtginc1_4m_2013, r_medianmrtginc1_4m_2013, 2013, 2018 )
+		%dollar_convert( medianmrtginc1_4m_2014, r_medianmrtginc1_4m_2014, 2014, 2018 )
+		%dollar_convert( medianmrtginc1_4m_2015, r_medianmrtginc1_4m_2015, 2015, 2018 )
+		%dollar_convert( medianmrtginc1_4m_2016, r_medianmrtginc1_4m_2016, 2016, 2018 )
+		%dollar_convert( medianmrtginc1_4m_2017, r_medianmrtginc1_4m_2017, 2017, 2018 )
+		%dollar_convert( medianmrtginc1_4m_2018, r_medianmrtginc1_4m_2018, 2018, 2018 )
+
+
 		/*Labor force, employment, and poverty*/
 			PctLaborForce_&_years. = popincivlaborforce_&_years. / pop16andoveryears_&_years.;
 			PctPopEmployed_&_years. = popcivilianemployed_&_years. / popincivlaborforce_&_years.;
@@ -566,16 +578,16 @@ data compile_bpk_tabs_2014_18_&geosuf;
 			PctMrtgorigBlk_2017 = nummrtgorigblack_2017/nummrtgorigwithrace_2017;
 			PctMrtgorigBlk_2018 = nummrtgorigblack_2018/nummrtgorigwithrace_2018;
 				
-			PctMrtgorigAsn_2009 = nummrtgorigasian_2009/nummrtgorigwithrace_2009;
-			PctMrtgorigAsn_2010 = nummrtgorigasian_2010/nummrtgorigwithrace_2010;
-			PctMrtgorigAsn_2011 = nummrtgorigasian_2011/nummrtgorigwithrace_2011;
-			PctMrtgorigAsn_2012 = nummrtgorigasian_2012/nummrtgorigwithrace_2012;
-			PctMrtgorigAsn_2013 = nummrtgorigasian_2013/nummrtgorigwithrace_2013;
-			PctMrtgorigAsn_2014 = nummrtgorigasian_2014/nummrtgorigwithrace_2014;
-			PctMrtgorigAsn_2015 = nummrtgorigasian_2015/nummrtgorigwithrace_2015;
-			PctMrtgorigAsn_2016 = nummrtgorigasian_2016/nummrtgorigwithrace_2016;
-			PctMrtgorigAsn_2017 = nummrtgorigasian_2017/nummrtgorigwithrace_2017;
-			PctMrtgorigAsn_2018 = nummrtgorigasian_2018/nummrtgorigwithrace_2018;
+			PctMrtgorigAsn_2009 = nummrtgorigasianpi_2009/nummrtgorigwithrace_2009;
+			PctMrtgorigAsn_2010 = nummrtgorigasianpi_2010/nummrtgorigwithrace_2010;
+			PctMrtgorigAsn_2011 = nummrtgorigasianpi_2011/nummrtgorigwithrace_2011;
+			PctMrtgorigAsn_2012 = nummrtgorigasianpi_2012/nummrtgorigwithrace_2012;
+			PctMrtgorigAsn_2013 = nummrtgorigasianpi_2013/nummrtgorigwithrace_2013;
+			PctMrtgorigAsn_2014 = nummrtgorigasianpi_2014/nummrtgorigwithrace_2014;
+			PctMrtgorigAsn_2015 = nummrtgorigasianpi_2015/nummrtgorigwithrace_2015;
+			PctMrtgorigAsn_2016 = nummrtgorigasianpi_2016/nummrtgorigwithrace_2016;
+			PctMrtgorigAsn_2017 = nummrtgorigasianpi_2017/nummrtgorigwithrace_2017;
+			PctMrtgorigAsn_2018 = nummrtgorigasianpi_2018/nummrtgorigwithrace_2018;
 				
 			PctMrtgorigHisp_2009 = nummrtgorighisp_2009/nummrtgorigwithrace_2009;
 			PctMrtgorigHisp_2010 = nummrtgorighisp_2010/nummrtgorigwithrace_2010;
